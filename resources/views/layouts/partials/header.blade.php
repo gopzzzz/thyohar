@@ -210,6 +210,26 @@
             </ul>
           </li>
 
+
+          <li class="nav-item">
+    <a href="{{ route('categories.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-list"></i>
+        <p>categories</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('reviews.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Reviews</p>
+    </a>
+</li>
+
+
+
+
+
           <li class="nav-item">
     <a href="{{ route('logout') }}" class="nav-link">
         <i class="nav-icon fas fa-sign-out-alt"></i>
