@@ -236,6 +236,19 @@
         <p>Logout</p>
     </a>
 </li>
+         <li class="nav-item">
+    <a href="{{ route('vendors') }}" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Vendors</p>
+    </a>
+</li>
+
+         <li class="nav-item">
+    <a href="{{ route('banners') }}" class="nav-link">
+        <i class="nav-icon fas fa-images"></i>
+        <p>Banners</p>
+    </a>
+</li>
          
           
           
