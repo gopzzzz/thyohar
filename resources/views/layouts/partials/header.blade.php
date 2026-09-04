@@ -230,12 +230,7 @@
 
 
 
-          <li class="nav-item">
-    <a href="{{ route('logout') }}" class="nav-link">
-        <i class="nav-icon fas fa-sign-out-alt"></i>
-        <p>Logout</p>
-    </a>
-</li>
+        
          <li class="nav-item">
     <a href="{{ route('vendors') }}" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
@@ -249,7 +244,59 @@
         <p>Banners</p>
     </a>
 </li>
+
+
+<li class="nav-item">
+    <a href="{{ route('bookingmasters.index') }}" class="nav-link">
+        <i class="nav-icon fas fa-calendar-check"></i>
+        <p>Booking Masters</p>
+    </a>
+</li>
+
+
+
+<li class="nav-item">
+    <a href="{{ route('vendor_bankdetails.index') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-university"></i>
+
+        <p>
+            Vendor Bank Details
+        </p>
+
+    </a>
+</li>
+
+
+
+<li class="nav-item">
+    <a href="{{ route('vendor_services.index') }}" class="nav-link">
+
+        <i class="nav-icon fas fa-concierge-bell"></i>
+
+        <p>
+            Vendor Services
+        </p>
+
+    </a>
+</li>
+
+
+
+
+
+
          
+
+  <li class="nav-item">
+    <a href="{{ route('logout') }}" class="nav-link">
+        <i class="nav-icon fas fa-sign-out-alt"></i>
+        <p>Logout</p>
+    </a>
+</li>
+
+
+
           
           
         </ul>
