@@ -17,6 +17,18 @@ use App\Http\Controllers\PaymentHistoryController;
 
 use App\Http\Controllers\VendorsController;
 use App\Http\Controllers\BannersController;
+use App\Http\Controllers\BookingMastersController;
+use App\Http\Controllers\VendorBankdetailsController;
+use App\Http\Controllers\VendorServicesController;
+
+
+
+
+
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,11 +64,11 @@ Route::get('/categories', [CategoriesController::class, 'index'])
 Route::post('/categories', [CategoriesController::class, 'store'])
     ->name('categories.store');
 
-Route::get('/categories/{id}/edit', [CategoriesController::class, 'edit'])
-    ->name('categories.edit');
-
 Route::put('/categories/{id}', [CategoriesController::class, 'update'])
     ->name('categories.update');
+
+Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])
+    ->name('categories.destroy');
 
 
 
@@ -146,5 +158,44 @@ Route::post('/customers/store', [CustomersController::class, 'store'])
 
 Route::put('/customers/{id}', [CustomersController::class, 'update'])
     ->name('customers.update');
+
+Route::get('/bookingmasters', [BookingMastersController::class, 'index'])
+    ->name('bookingmasters.index');
+
+
+
+
+Route::get('/vendor-bankdetails', [VendorBankdetailsController::class, 'index'])
+    ->name('vendor_bankdetails.index');
+
+Route::post('/vendor-bankdetails', [VendorBankdetailsController::class, 'store'])
+    ->name('vendor_bankdetails.store');
+
+Route::put('/vendor-bankdetails/{id}', [VendorBankdetailsController::class, 'update'])
+    ->name('vendor_bankdetails.update');
+
+
+
+
+
+Route::get('/vendor-services', [VendorServicesController::class, 'index'])
+    ->name('vendor_services.index');
+
+Route::post('/vendor-services', [VendorServicesController::class, 'store'])
+    ->name('vendor_services.store');
+
+Route::put('/vendor-services/{id}', [VendorServicesController::class, 'update'])
+    ->name('vendor_services.update');
+
+Route::delete('/vendor-services/{id}', [VendorServicesController::class, 'destroy'])
+    ->name('vendor_services.destroy');
+
+
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';

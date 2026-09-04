@@ -6,12 +6,15 @@
 
     <!-- Content Header -->
     <section class="content-header">
+
         <div class="container-fluid">
 
             <div class="row mb-2">
 
                 <div class="col-sm-6">
+
                     <h1>Categories</h1>
+
                 </div>
 
                 <div class="col-sm-6">
@@ -33,6 +36,7 @@
             </div>
 
         </div>
+
     </section>
 
 
@@ -43,6 +47,7 @@
 
 
             <!-- SUCCESS MESSAGE -->
+
             @if(session('success'))
 
                 <div class="alert alert-success alert-dismissible fade show">
@@ -53,7 +58,7 @@
                             class="close"
                             data-dismiss="alert">
 
-                        &times;
+                        <span>&times;</span>
 
                     </button>
 
@@ -63,6 +68,7 @@
 
 
             <!-- ERROR MESSAGE -->
+
             @if(session('error'))
 
                 <div class="alert alert-danger alert-dismissible fade show">
@@ -73,7 +79,7 @@
                             class="close"
                             data-dismiss="alert">
 
-                        &times;
+                        <span>&times;</span>
 
                     </button>
 
@@ -83,6 +89,7 @@
 
 
             <!-- VALIDATION ERRORS -->
+
             @if($errors->any())
 
                 <div class="alert alert-danger">
@@ -103,16 +110,19 @@
 
 
             <!-- CATEGORY CARD -->
+
             <div class="card">
 
-
                 <!-- CARD HEADER -->
+
                 <div class="card-header">
 
                     <h3 class="card-title">
                         Category List
                     </h3>
 
+
+                    <!-- ADD BUTTON -->
 
                     <button type="button"
                             class="btn btn-primary float-right"
@@ -129,8 +139,8 @@
 
 
                 <!-- CARD BODY -->
-                <div class="card-body">
 
+                <div class="card-body">
 
                     <table class="table table-bordered table-striped">
 
@@ -138,7 +148,7 @@
 
                             <tr>
 
-                                <th style="width: 10%;">
+                                <th style="width:10%;">
                                     ID
                                 </th>
 
@@ -150,7 +160,7 @@
                                     Image
                                 </th>
 
-                                <th style="width: 18%;">
+                                <th style="width:18%;">
                                     Action
                                 </th>
 
@@ -162,80 +172,260 @@
                         <tbody>
 
 
-                            @forelse($categories as $categoryItem)
+                        @forelse($categories as $categoryItem)
 
-                                <tr>
+                            <tr>
 
+                                <!-- ID -->
 
-                                    <!-- ID -->
-                                    <td>
-                                        {{ $categoryItem->id }}
-                                    </td>
-
-
-                                    <!-- CATEGORY NAME -->
-                                    <td>
-                                        {{ $categoryItem->category_name }}
-                                    </td>
+                                <td>
+                                    {{ $categoryItem->id }}
+                                </td>
 
 
-                                    <!-- IMAGE -->
-                                    <td>
+                                <!-- CATEGORY NAME -->
 
-                                        @if($categoryItem->image)
-
-                                            <img src="{{ asset('uploads/categories/' . $categoryItem->image) }}"
-                                                 width="70"
-                                                 height="70"
-                                                 style="object-fit: cover; border-radius: 5px;">
-
-                                        @else
-
-                                            No Image
-
-                                        @endif
-
-                                    </td>
+                                <td>
+                                    {{ $categoryItem->category_name }}
+                                </td>
 
 
-                                    <!-- ACTION -->
-                                    <td>
+                                <!-- IMAGE -->
 
-                                        <a href="{{ route('categories.edit', $categoryItem->id) }}"
-                                           class="btn btn-primary btn-sm">
+                                <td>
 
-                                            <i class="fas fa-edit"></i>
+                                    @if($categoryItem->image)
 
-                                            Edit
+                                        <img src="{{ asset('uploads/categories/' . $categoryItem->image) }}"
+                                             width="70"
+                                             height="70"
+                                             style="object-fit:cover;border-radius:5px;">
 
-                                        </a>
+                                    @else
 
-                                    </td>
+                                        No Image
+
+                                    @endif
+
+                                </td>
 
 
-                                </tr>
+                                <!-- ACTION -->
+
+                                <td>
 
 
-                            @empty
+                                    <!-- EDIT BUTTON -->
 
-                                <tr>
+                                    <button type="button"
+                                            class="btn btn-primary btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#editCategoryModal{{ $categoryItem->id }}">
 
-                                    <td colspan="4"
-                                        class="text-center">
+                                        <i class="fas fa-edit"></i>
 
-                                        No categories found.
+                                        Edit
 
-                                    </td>
+                                    </button>
 
-                                </tr>
 
-                            @endforelse
+                                    <!-- DELETE BUTTON -->
+
+                                    <form action="{{ route('categories.destroy', $categoryItem->id) }}"
+                                          method="POST"
+                                          style="display:inline;">
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                                class="btn btn-primary btn-sm"
+                                                onclick="return confirm('Are you sure you want to delete this category?')">
+
+                                            <i class="fas fa-trash"></i>
+
+                                            Delete
+
+                                        </button>
+
+                                    </form>
+
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- ================================= -->
+                            <!-- EDIT CATEGORY MODAL -->
+                            <!-- ================================= -->
+
+                            <div class="modal fade"
+                                 id="editCategoryModal{{ $categoryItem->id }}"
+                                 tabindex="-1"
+                                 role="dialog">
+
+                                <div class="modal-dialog"
+                                     role="document">
+
+                                    <div class="modal-content">
+
+
+                                        <form action="{{ route('categories.update', $categoryItem->id) }}"
+                                              method="POST"
+                                              enctype="multipart/form-data">
+
+                                            @csrf
+
+                                            @method('PUT')
+
+
+                                            <!-- HEADER -->
+
+                                            <div class="modal-header">
+
+                                                <h4 class="modal-title">
+
+                                                    Edit Category
+
+                                                </h4>
+
+
+                                                <button type="button"
+                                                        class="close"
+                                                        data-dismiss="modal">
+
+                                                    <span>&times;</span>
+
+                                                </button>
+
+                                            </div>
+
+
+                                            <!-- BODY -->
+
+                                            <div class="modal-body">
+
+
+                                                <!-- CATEGORY NAME -->
+
+                                                <div class="form-group">
+
+                                                    <label>
+                                                        Category Name
+                                                    </label>
+
+                                                    <input type="text"
+                                                           name="category_name"
+                                                           class="form-control"
+                                                           value="{{ $categoryItem->category_name }}"
+                                                           required>
+
+                                                </div>
+
+
+                                                <!-- CURRENT IMAGE -->
+
+                                                <div class="form-group">
+
+                                                    <label>
+                                                        Current Image
+                                                    </label>
+
+                                                    <br>
+
+
+                                                    @if($categoryItem->image)
+
+                                                        <img src="{{ asset('uploads/categories/' . $categoryItem->image) }}"
+                                                             width="100"
+                                                             height="100"
+                                                             style="object-fit:cover;border-radius:5px;">
+
+                                                    @else
+
+                                                        <p>No Image</p>
+
+                                                    @endif
+
+                                                </div>
+
+
+                                                <!-- CHANGE IMAGE -->
+
+                                                <div class="form-group">
+
+                                                    <label>
+                                                        Change Image
+                                                    </label>
+
+                                                    <input type="file"
+                                                           name="image"
+                                                           class="form-control"
+                                                           accept="image/*">
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <!-- FOOTER -->
+
+                                            <div class="modal-footer">
+
+
+                                                <button type="button"
+                                                        class="btn btn-secondary"
+                                                        data-dismiss="modal">
+
+                                                    Cancel
+
+                                                </button>
+
+
+                                                <button type="submit"
+                                                        class="btn btn-primary">
+
+                                                    <i class="fas fa-save"></i>
+
+                                                    Update Record
+
+                                                </button>
+
+
+                                            </div>
+
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        @empty
+
+                            <tr>
+
+                                <td colspan="4"
+                                    class="text-center">
+
+                                    No categories found.
+
+                                </td>
+
+                            </tr>
+
+                        @endforelse
 
 
                         </tbody>
 
                     </table>
-
 
                 </div>
 
@@ -272,11 +462,15 @@
 
 
                 <!-- HEADER -->
+
                 <div class="modal-header">
 
                     <h4 class="modal-title">
+
                         Add Category
+
                     </h4>
+
 
                     <button type="button"
                             class="close"
@@ -290,10 +484,12 @@
 
 
                 <!-- BODY -->
+
                 <div class="modal-body">
 
 
                     <!-- CATEGORY NAME -->
+
                     <div class="form-group">
 
                         <label>
@@ -311,6 +507,7 @@
 
 
                     <!-- IMAGE -->
+
                     <div class="form-group">
 
                         <label>
@@ -330,7 +527,9 @@
 
 
                 <!-- FOOTER -->
+
                 <div class="modal-footer">
+
 
                     <button type="button"
                             class="btn btn-secondary"
@@ -350,6 +549,7 @@
 
                     </button>
 
+
                 </div>
 
 
@@ -360,167 +560,6 @@
     </div>
 
 </div>
-
-
-
-<!-- ================================================= -->
-<!-- EDIT CATEGORY MODAL -->
-<!-- ================================================= -->
-
-@if(isset($category))
-
-
-<div class="modal fade show"
-     id="editCategoryModal"
-     tabindex="-1"
-     role="dialog"
-     style="display: block; padding-right: 17px;"
-     aria-modal="true">
-
-
-    <div class="modal-dialog"
-         role="document">
-
-
-        <div class="modal-content">
-
-
-            <form action="{{ route('categories.update', $category->id) }}"
-                  method="POST"
-                  enctype="multipart/form-data">
-
-                @csrf
-
-                @method('PUT')
-
-
-                <!-- HEADER -->
-                <div class="modal-header">
-
-                    <h4 class="modal-title">
-                        Edit Category
-                    </h4>
-
-
-                    <a href="{{ route('categories.index') }}"
-                       class="close">
-
-                        <span>&times;</span>
-
-                    </a>
-
-                </div>
-
-
-                <!-- BODY -->
-                <div class="modal-body">
-
-
-                    <!-- CATEGORY NAME -->
-                    <div class="form-group">
-
-                        <label>
-                            Category Name
-                        </label>
-
-
-                        <input type="text"
-                               name="category_name"
-                               class="form-control"
-                               value="{{ $category->category_name }}"
-                               required>
-
-                    </div>
-
-
-                    <!-- CURRENT IMAGE -->
-                    <div class="form-group">
-
-                        <label>
-                            Current Image
-                        </label>
-
-                        <br>
-
-
-                        @if($category->image)
-
-                            <img src="{{ asset('uploads/categories/' . $category->image) }}"
-                                 width="100"
-                                 height="100"
-                                 style="object-fit: cover; border-radius: 5px;">
-
-                        @else
-
-                            <p>
-                                No Image
-                            </p>
-
-                        @endif
-
-                    </div>
-
-
-                    <!-- NEW IMAGE -->
-                    <div class="form-group">
-
-                        <label>
-                            Change Image
-                        </label>
-
-
-                        <input type="file"
-                               name="image"
-                               class="form-control"
-                               accept="image/*">
-
-                    </div>
-
-
-                </div>
-
-
-                <!-- FOOTER -->
-                <div class="modal-footer">
-
-
-                    <a href="{{ route('categories.index') }}"
-                       class="btn btn-secondary">
-
-                        Cancel
-
-                    </a>
-
-
-                    <button type="submit"
-                            class="btn btn-primary">
-
-                        <i class="fas fa-save"></i>
-
-                        Update Record
-
-                    </button>
-
-
-                </div>
-
-
-            </form>
-
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- MODAL BACKDROP -->
-
-<div class="modal-backdrop fade show"></div>
-
-
-@endif
 
 
 @endsection
