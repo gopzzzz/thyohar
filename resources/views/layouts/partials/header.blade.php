@@ -210,6 +210,12 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+    <a href="{{ route('customers') }}" class="nav-link">
+        <i class="nav-icon fas fa-list"></i>
+        <p>Customers</p>
+    </a>
+</li>
 
           <li class="nav-item">
     <a href="{{ route('categories.index') }}" class="nav-link">
@@ -227,19 +233,25 @@
 </li>
 
 
-
-
-
-          <li class="nav-item">
-    <a href="{{ route('logout') }}" class="nav-link">
-        <i class="nav-icon fas fa-sign-out-alt"></i>
-        <p>Logout</p>
-    </a>
-</li>
          <li class="nav-item">
     <a href="{{ route('vendors') }}" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
         <p>Vendors</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('vendorpackages') }}" class="nav-link">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Vendorpackages</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('vendorsettlement') }}" class="nav-link">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Vendorsettlement</p>
     </a>
 </li>
 
@@ -249,7 +261,21 @@
         <p>Banners</p>
     </a>
 </li>
-         
+
+        <li class="nav-item">
+    <a href="{{ route('payment_history') }}" class="nav-link">
+        <i class="nav-icon fas fa-images"></i>
+        <p>Payment History</p>
+    </a>
+</li>
+        
+
+          <li class="nav-item">
+    <a href="{{ route('logout') }}" class="nav-link">
+        <i class="nav-icon fas fa-sign-out-alt"></i>
+        <p>Logout</p>
+    </a>
+</li>
           
           
         </ul>

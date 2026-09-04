@@ -6,8 +6,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\VendorPackagesController;
+use App\Http\Controllers\VendorSettlementController;
+use App\Http\Controllers\PaymentHistoryController;
 
 
 
@@ -98,5 +102,49 @@ Route::put('/banners/{id}', [BannersController::class, 'update'])
 Route::delete('/banners/{id}', [BannersController::class, 'destroy'])
     ->name('banners.destroy');
 
+
+Route::get('/vendorpackages', [VendorPackagesController::class, 'index'])
+    ->name('vendorpackages');
+
+Route::post('/vendorpackages/store', [VendorPackagesController::class, 'store'])
+    ->name('vendorpackages.store');
+
+Route::get('/vendorpackages/{id}/edit', [VendorPackagesController::class, 'edit'])
+    ->name('vendorpackages.edit');
+
+Route::put('/vendorpackages/{id}', [VendorPackagesController::class, 'update'])
+    ->name('vendorpackages.update');
+
+
+Route::get('/payment-history', [PaymentHistoryController::class, 'index'])
+    ->name('payment_history');
+
+Route::post('/payment-history/store', [PaymentHistoryController::class, 'store'])
+    ->name('payment_history.store');
+
+Route::put('/payment-history/{id}', [PaymentHistoryController::class, 'update'])
+    ->name('payment_history.update');
+
+
+
+Route::get('/vendorsettlement', [VendorSettlementController::class, 'index'])
+    ->name('vendorsettlement');
+
+Route::post('/vendorsettlement/store', [VendorSettlementController::class, 'store'])
+    ->name('vendor_settlement.store');
+
+Route::put('/vendorsettlement/{id}', [VendorSettlementController::class, 'update'])
+    ->name('vendor_settlement.update');
+
+
+
+Route::get('/customers', [CustomersController::class, 'index'])
+    ->name('customers');
+
+Route::post('/customers/store', [CustomersController::class, 'store'])
+    ->name('customers.store');
+
+Route::put('/customers/{id}', [CustomersController::class, 'update'])
+    ->name('customers.update');
 
 require __DIR__.'/auth.php';
