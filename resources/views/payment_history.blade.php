@@ -86,7 +86,7 @@
 
 
                         <!-- ================================================= -->
-                        <!-- SUCCESS -->
+                        <!-- SUCCESS MESSAGE -->
                         <!-- ================================================= -->
 
                         @if(session('success'))
@@ -111,7 +111,7 @@
 
 
                         <!-- ================================================= -->
-                        <!-- ERROR -->
+                        <!-- ERROR MESSAGE -->
                         <!-- ================================================= -->
 
                         @if(session('error'))
@@ -136,7 +136,7 @@
 
 
                         <!-- ================================================= -->
-                        <!-- VALIDATION -->
+                        <!-- VALIDATION ERRORS -->
                         <!-- ================================================= -->
 
                         @if($errors->any())
@@ -161,7 +161,7 @@
 
 
                         <!-- ================================================= -->
-                        <!-- TABLE -->
+                        <!-- PAYMENT HISTORY TABLE -->
                         <!-- ================================================= -->
 
                         <div class="card-body">
@@ -205,39 +205,61 @@
 
                                     <tbody>
 
-                                        @forelse($paymentHistory as $payment)
+                                        <!-- ================================================= -->
+                                        <!-- SORT PAYMENT HISTORY BY ID ASCENDING -->
+                                        <!-- ================================================= -->
+
+                                        @forelse($paymentHistory->sortBy('id') as $payment)
 
                                             <tr>
 
+                                                <!-- ========================================= -->
                                                 <!-- ID -->
+                                                <!-- ========================================= -->
 
                                                 <td>
+
                                                     {{ $payment->id }}
+
                                                 </td>
 
 
-                                                <!-- CUSTOMER -->
+                                                <!-- ========================================= -->
+                                                <!-- CUSTOMER ID -->
+                                                <!-- ========================================= -->
 
                                                 <td>
+
                                                     {{ $payment->cus_id }}
+
                                                 </td>
 
 
-                                                <!-- BOOKING -->
+                                                <!-- ========================================= -->
+                                                <!-- BOOKING ID -->
+                                                <!-- ========================================= -->
 
                                                 <td>
+
                                                     {{ $payment->bookingid }}
+
                                                 </td>
 
 
-                                                <!-- REMARKS -->
+                                                <!-- ========================================= -->
+                                                <!-- PAYMENT REMARKS -->
+                                                <!-- ========================================= -->
 
                                                 <td>
+
                                                     {{ $payment->payment_remarks }}
+
                                                 </td>
 
 
-                                                <!-- AMOUNT -->
+                                                <!-- ========================================= -->
+                                                <!-- PAYMENT AMOUNT -->
+                                                <!-- ========================================= -->
 
                                                 <td>
 
@@ -246,7 +268,9 @@
                                                 </td>
 
 
+                                                <!-- ========================================= -->
                                                 <!-- ACTION -->
+                                                <!-- ========================================= -->
 
                                                 <td class="text-center">
 
@@ -269,7 +293,7 @@
 
 
                                             <!-- ================================================= -->
-                                            <!-- EDIT MODAL -->
+                                            <!-- EDIT PAYMENT MODAL -->
                                             <!-- ================================================= -->
 
                                             <div
@@ -277,6 +301,8 @@
                                                 id="editPayment{{ $payment->id }}"
                                                 tabindex="-1"
                                                 role="dialog"
+                                                aria-labelledby="editPaymentLabel{{ $payment->id }}"
+                                                aria-hidden="true"
                                             >
 
                                                 <div class="modal-dialog modal-lg">
@@ -294,11 +320,18 @@
                                                         <div class="modal-content">
 
 
-                                                            <!-- HEADER -->
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL HEADER -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-header">
 
-                                                                <h5 class="modal-title">
+                                                                <h5
+                                                                    class="modal-title"
+                                                                    id="editPaymentLabel{{ $payment->id }}"
+                                                                >
+
+                                                                    <i class="fas fa-edit"></i>
 
                                                                     Edit Payment
 
@@ -318,7 +351,9 @@
                                                             </div>
 
 
-                                                            <!-- BODY -->
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL BODY -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-body">
 
@@ -328,14 +363,22 @@
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Customer ID
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="number"
                                                                         name="cus_id"
                                                                         class="form-control"
                                                                         value="{{ $payment->cus_id }}"
+                                                                        min="1"
                                                                         required
                                                                     >
 
@@ -347,8 +390,15 @@
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Booking ID
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="text"
@@ -361,31 +411,46 @@
                                                                 </div>
 
 
-                                                                <!-- REMARKS -->
+                                                                <!-- PAYMENT REMARKS -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Payment Remarks
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <textarea
                                                                         name="payment_remarks"
                                                                         class="form-control"
                                                                         rows="4"
+                                                                        placeholder="Enter payment remarks"
                                                                         required
                                                                     >{{ $payment->payment_remarks }}</textarea>
 
                                                                 </div>
 
 
-                                                                <!-- AMOUNT -->
+                                                                <!-- PAYMENT AMOUNT -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Payment Amount
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="number"
@@ -403,7 +468,9 @@
                                                             </div>
 
 
-                                                            <!-- FOOTER -->
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL FOOTER -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-footer">
 
@@ -441,6 +508,10 @@
                                             </div>
 
                                         @empty
+
+                                            <!-- ================================================= -->
+                                            <!-- NO PAYMENT HISTORY -->
+                                            <!-- ================================================= -->
 
                                             <tr>
 
@@ -497,7 +568,7 @@
 
 
 <!-- ===================================================== -->
-<!-- ADD PAYMENT MODAL -->
+<!-- ADD NEW PAYMENT MODAL -->
 <!-- ===================================================== -->
 
 <div
@@ -505,6 +576,8 @@
     id="newPaymentModal"
     tabindex="-1"
     role="dialog"
+    aria-labelledby="newPaymentModalLabel"
+    aria-hidden="true"
 >
 
     <div class="modal-dialog modal-lg">
@@ -520,12 +593,21 @@
             <div class="modal-content">
 
 
-                <!-- HEADER -->
+                <!-- ================================================= -->
+                <!-- MODAL HEADER -->
+                <!-- ================================================= -->
 
                 <div class="modal-header">
 
-                    <h5 class="modal-title">
+                    <h5
+                        class="modal-title"
+                        id="newPaymentModalLabel"
+                    >
+
+                        <i class="fas fa-plus"></i>
+
                         Add New Payment
+
                     </h5>
 
 
@@ -542,7 +624,9 @@
                 </div>
 
 
-                <!-- BODY -->
+                <!-- ================================================= -->
+                <!-- MODAL BODY -->
+                <!-- ================================================= -->
 
                 <div class="modal-body">
 
@@ -602,7 +686,7 @@
                     </div>
 
 
-                    <!-- REMARKS -->
+                    <!-- PAYMENT REMARKS -->
 
                     <div class="form-group">
 
@@ -628,7 +712,7 @@
                     </div>
 
 
-                    <!-- AMOUNT -->
+                    <!-- PAYMENT AMOUNT -->
 
                     <div class="form-group">
 
@@ -660,7 +744,9 @@
                 </div>
 
 
-                <!-- FOOTER -->
+                <!-- ================================================= -->
+                <!-- MODAL FOOTER -->
+                <!-- ================================================= -->
 
                 <div class="modal-footer">
 
@@ -696,6 +782,26 @@
     </div>
 
 </div>
+
+
+
+<!-- ===================================================== -->
+<!-- OPEN ADD MODAL AFTER VALIDATION ERROR -->
+<!-- ===================================================== -->
+
+@if($errors->any() && old('payment_history_form'))
+
+<script>
+
+$(document).ready(function () {
+
+    $('#newPaymentModal').modal('show');
+
+});
+
+</script>
+
+@endif
 
 
 @endsection

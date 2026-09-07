@@ -49,6 +49,16 @@
             @endif
 
 
+            {{-- Error Message --}}
+            @if(session('error'))
+
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+
+            @endif
+
+
             {{-- Validation Errors --}}
             @if($errors->any())
 
@@ -57,7 +67,9 @@
                     <ul class="mb-0">
 
                         @foreach($errors->all() as $error)
+
                             <li>{{ $error }}</li>
+
                         @endforeach
 
                     </ul>
@@ -112,22 +124,35 @@
 
                             <tbody>
 
+                                {{-- SERIAL NUMBER --}}
+                                @php
+                                    $i = 1;
+                                @endphp
+
+
                                 @forelse($vendorservices as $service)
 
                                     <tr>
 
+                                        <!-- DISPLAY SERIAL NUMBER -->
                                         <td>
-                                            {{ $service->id }}
+                                            {{ $i }}
                                         </td>
 
+
+                                        <!-- VENDOR ID -->
                                         <td>
                                             {{ $service->vendor_id }}
                                         </td>
 
+
+                                        <!-- SERVICE ID -->
                                         <td>
                                             {{ $service->service_id }}
                                         </td>
 
+
+                                        <!-- ACTION -->
                                         <td>
 
                                             <!-- EDIT BUTTON -->
@@ -164,6 +189,12 @@
                                         </td>
 
                                     </tr>
+
+
+                                    {{-- INCREASE SERIAL NUMBER --}}
+                                    @php
+                                        $i++;
+                                    @endphp
 
 
                                     <!-- ========================= -->

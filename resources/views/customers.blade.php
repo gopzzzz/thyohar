@@ -77,6 +77,7 @@
                             >
 
                                 <i class="fas fa-plus"></i>
+
                                 New Customer
 
                             </button>
@@ -202,40 +203,60 @@
 
                                     <tbody>
 
+
+                                        <!-- ================================================= -->
+                                        <!-- SERIAL NUMBER STARTS FROM 1 -->
+                                        <!-- ================================================= -->
+
+                                        @php
+                                            $serial = 1;
+                                        @endphp
+
+
                                         @forelse($customers as $customer)
 
                                             <tr>
 
 
-                                                <!-- ID -->
+                                                <!-- ================================================= -->
+                                                <!-- DISPLAY SERIAL NUMBER -->
+                                                <!-- ================================================= -->
 
                                                 <td>
-                                                    {{ $customer->id }}
+                                                    {{ $serial }}
                                                 </td>
 
 
+                                                <!-- ================================================= -->
                                                 <!-- CUSTOMER NAME -->
+                                                <!-- ================================================= -->
 
                                                 <td>
                                                     {{ $customer->customername }}
                                                 </td>
 
 
+                                                <!-- ================================================= -->
                                                 <!-- PHONE NUMBER -->
+                                                <!-- ================================================= -->
 
                                                 <td>
                                                     {{ $customer->phone_number }}
                                                 </td>
 
 
+                                                <!-- ================================================= -->
                                                 <!-- EMAIL -->
+                                                <!-- ================================================= -->
 
                                                 <td>
                                                     {{ $customer->email }}
                                                 </td>
 
 
+                                                <!-- ================================================= -->
                                                 <!-- ACTION -->
+                                                <!-- ================================================= -->
 
                                                 <td class="text-center">
 
@@ -259,16 +280,29 @@
                                                     >
 
                                                         <i class="fas fa-edit"></i>
+
                                                         Edit
 
                                                     </button>
+
 
                                                 </td>
 
 
                                             </tr>
 
+
+                                            <!-- ================================================= -->
+                                            <!-- INCREASE SERIAL NUMBER -->
+                                            <!-- ================================================= -->
+
+                                            @php
+                                                $serial++;
+                                            @endphp
+
+
                                         @empty
+
 
                                             <tr>
 
@@ -283,7 +317,9 @@
 
                                             </tr>
 
+
                                         @endforelse
+
 
                                     </tbody>
 
@@ -365,6 +401,7 @@
                     >
 
                         <i class="fas fa-user-plus"></i>
+
                         Add New Customer
 
                     </h5>
@@ -520,6 +557,7 @@
                     >
 
                         <i class="fas fa-save"></i>
+
                         Save Customer
 
                     </button>
@@ -581,6 +619,7 @@
                     >
 
                         <i class="fas fa-edit"></i>
+
                         Edit Customer
 
                     </h5>
@@ -726,6 +765,7 @@
                     >
 
                         <i class="fas fa-save"></i>
+
                         Update Customer
 
                     </button>
@@ -760,12 +800,16 @@ $(document).ready(function () {
     $('.editCustomerBtn').on('click', function () {
 
 
-        // Get customer ID
+        // =================================================
+        // GET REAL DATABASE ID
+        // =================================================
 
         var id = $(this).attr('data-id');
 
 
-        // Get customer details
+        // =================================================
+        // GET CUSTOMER DATA
+        // =================================================
 
         var customerName =
             $(this).attr('data-customername');
@@ -796,7 +840,7 @@ $(document).ready(function () {
 
 
         // =================================================
-        // SET UPDATE FORM ACTION
+        // SET UPDATE URL
         // =================================================
 
         $('#editCustomerForm').attr(
