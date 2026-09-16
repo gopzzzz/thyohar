@@ -163,8 +163,7 @@
 
                                         @endfor
 
-                                        ({{ $review->rating }})
-
+                                        
                                     </td>
 
 

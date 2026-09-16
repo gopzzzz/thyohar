@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
-    // LIST
+    // =========================================
+    // LIST CATEGORIES
+    // =========================================
+
     public function index()
     {
         $categories = DB::table('categories')
@@ -18,7 +21,10 @@ class CategoriesController extends Controller
     }
 
 
-    // ADD
+    // =========================================
+    // ADD CATEGORY
+    // =========================================
+
     public function store(Request $request)
     {
         $request->validate([
@@ -26,13 +32,23 @@ class CategoriesController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:10240',
         ]);
 
-        $imageName = time() . '.' . $request->image->extension();
+        // Create upload folder if it doesn't exist
+        $uploadPath = public_path('uploads/categories');
 
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        // Create image name
+        $imageName = time() . '_' . $request->image->getClientOriginalName();
+
+        // Upload image
         $request->image->move(
-            public_path('uploads/categories'),
+            $uploadPath,
             $imageName
         );
 
+        // Insert category
         DB::table('categories')->insert([
             'category_name' => $request->category_name,
             'image' => $imageName,
@@ -46,28 +62,10 @@ class CategoriesController extends Controller
     }
 
 
-    // EDIT
-    public function edit($id)
-    {
-        $category = DB::table('categories')
-            ->where('id', $id)
-            ->first();
+    // =========================================
+    // UPDATE CATEGORY
+    // =========================================
 
-        if (!$category) {
-            return redirect()
-                ->route('categories.index')
-                ->with('error', 'Category not found.');
-        }
-
-        $categories = DB::table('categories')
-            ->orderBy('id', 'asc')
-            ->get();
-
-        return view('categories', compact('categories', 'category'));
-    }
-
-
-    // UPDATE
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -75,6 +73,7 @@ class CategoriesController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10240',
         ]);
 
+        // Find category
         $category = DB::table('categories')
             ->where('id', $id)
             ->first();
@@ -85,9 +84,10 @@ class CategoriesController extends Controller
                 ->with('error', 'Category not found.');
         }
 
+        // Keep old image
         $imageName = $category->image;
 
-        // If new image selected
+        // If new image is selected
         if ($request->hasFile('image')) {
 
             // Delete old image
@@ -102,15 +102,24 @@ class CategoriesController extends Controller
                 }
             }
 
-            // Upload new image
-            $imageName = time() . '.' . $request->image->extension();
+            // Create upload folder if needed
+            $uploadPath = public_path('uploads/categories');
 
+            if (!file_exists($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            // New image name
+            $imageName = time() . '_' . $request->image->getClientOriginalName();
+
+            // Upload new image
             $request->image->move(
-                public_path('uploads/categories'),
+                $uploadPath,
                 $imageName
             );
         }
 
+        // Update database
         DB::table('categories')
             ->where('id', $id)
             ->update([
@@ -122,5 +131,45 @@ class CategoriesController extends Controller
         return redirect()
             ->route('categories.index')
             ->with('success', 'Category updated successfully.');
+    }
+
+
+    // =========================================
+    // DELETE CATEGORY
+    // =========================================
+
+    public function destroy($id)
+    {
+        // Find category
+        $category = DB::table('categories')
+            ->where('id', $id)
+            ->first();
+
+        if (!$category) {
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'Category not found.');
+        }
+
+        // Delete image
+        if ($category->image) {
+
+            $imagePath = public_path(
+                'uploads/categories/' . $category->image
+            );
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        // Delete category
+        DB::table('categories')
+            ->where('id', $id)
+            ->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Category deleted successfully.');
     }
 }
