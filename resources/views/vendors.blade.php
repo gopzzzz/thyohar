@@ -218,6 +218,10 @@
 
                                     <tbody>
 
+                                        @php
+                                            $i = 1;
+                                        @endphp
+
 
                                         @forelse($vendors as $vendor)
 
@@ -226,12 +230,12 @@
 
 
                                                 <!-- ================================= -->
-                                                <!-- ID -->
+                                                <!-- DISPLAY NUMBER -->
                                                 <!-- ================================= -->
 
                                                 <td>
 
-                                                    {{ $vendor->id }}
+                                                    {{ $i }}
 
                                                 </td>
 
@@ -395,6 +399,8 @@
                                                                     class="modal-title"
                                                                     id="editVendorModalLabel{{ $vendor->id }}"
                                                                 >
+
+                                                                    <i class="fas fa-edit"></i>
 
                                                                     Edit Vendor
 
@@ -682,6 +688,11 @@
                                             </div>
 
 
+                                            @php
+                                                $i++;
+                                            @endphp
+
+
                                         @empty
 
 
@@ -787,6 +798,8 @@
                         class="modal-title"
                         id="newVendorModalLabel"
                     >
+
+                        <i class="fas fa-user-plus"></i>
 
                         Add New Vendor
 

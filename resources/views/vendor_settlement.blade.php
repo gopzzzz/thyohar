@@ -66,6 +66,7 @@
                                 Vendor Settlement List
                             </h3>
 
+
                             <button
                                 type="button"
                                 class="btn btn-primary btn-sm"
@@ -74,11 +75,13 @@
                             >
 
                                 <i class="fas fa-plus"></i>
+
                                 New Settlement
 
                             </button>
 
                         </div>
+
 
 
                         <!-- ================================================= -->
@@ -106,6 +109,7 @@
                         @endif
 
 
+
                         <!-- ================================================= -->
                         <!-- ERROR MESSAGE -->
                         <!-- ================================================= -->
@@ -129,6 +133,7 @@
                             </div>
 
                         @endif
+
 
 
                         <!-- ================================================= -->
@@ -156,6 +161,7 @@
                         @endif
 
 
+
                         <!-- ================================================= -->
                         <!-- SETTLEMENT TABLE -->
                         <!-- ================================================= -->
@@ -164,7 +170,9 @@
 
                             <div class="table-responsive">
 
-                                <table class="table table-bordered table-striped table-hover">
+                                <table
+                                    class="table table-bordered table-striped table-hover"
+                                >
 
                                     <thead>
 
@@ -201,50 +209,79 @@
 
                                     <tbody>
 
-                                        @forelse($settlements as $settlement)
+
+                                        @forelse($settlements->sortBy('id')->values() as $settlement)
+
 
                                             <tr>
 
-                                                <!-- ID -->
+
+                                                <!-- ================================= -->
+                                                <!-- DISPLAY NUMBER -->
+                                                <!-- ================================= -->
 
                                                 <td>
-                                                    {{ $settlement->id }}
+
+                                                    {{ $loop->iteration }}
+
                                                 </td>
 
 
-                                                <!-- Vendor ID -->
+
+                                                <!-- ================================= -->
+                                                <!-- VENDOR ID -->
+                                                <!-- ================================= -->
 
                                                 <td>
+
                                                     {{ $settlement->vendor_id }}
+
                                                 </td>
 
 
-                                                <!-- Booking ID -->
+
+                                                <!-- ================================= -->
+                                                <!-- BOOKING ID -->
+                                                <!-- ================================= -->
 
                                                 <td>
+
                                                     {{ $settlement->booking_id }}
+
                                                 </td>
 
 
-                                                <!-- Payment Amount -->
+
+                                                <!-- ================================= -->
+                                                <!-- PAYMENT AMOUNT -->
+                                                <!-- ================================= -->
 
                                                 <td>
+
                                                     ₹ {{ number_format($settlement->payment_amount, 2) }}
+
                                                 </td>
 
 
-                                                <!-- Payment Remarks -->
+
+                                                <!-- ================================= -->
+                                                <!-- PAYMENT REMARKS -->
+                                                <!-- ================================= -->
 
                                                 <td>
+
                                                     {{ $settlement->payment_remarks }}
+
                                                 </td>
 
 
-                                                <!-- ================================================= -->
-                                                <!-- EDIT BUTTON -->
-                                                <!-- ================================================= -->
+
+                                                <!-- ================================= -->
+                                                <!-- ACTION -->
+                                                <!-- ================================= -->
 
                                                 <td class="text-center">
+
 
                                                     <button
                                                         type="button"
@@ -265,15 +302,24 @@
                                                     >
 
                                                         <i class="fas fa-edit"></i>
+
                                                         Edit
 
                                                     </button>
 
+
                                                 </td>
+
 
                                             </tr>
 
+
                                         @empty
+
+
+                                            <!-- ================================= -->
+                                            <!-- NO SETTLEMENTS -->
+                                            <!-- ================================= -->
 
                                             <tr>
 
@@ -288,7 +334,9 @@
 
                                             </tr>
 
+
                                         @endforelse
+
 
                                     </tbody>
 
@@ -297,6 +345,7 @@
                             </div>
 
                         </div>
+
 
 
                         <!-- ================================================= -->
@@ -347,6 +396,7 @@
         role="document"
     >
 
+
         <form
             action="{{ route('vendor_settlement.store') }}"
             method="POST"
@@ -364,12 +414,14 @@
 
                 <div class="modal-header">
 
+
                     <h5
                         class="modal-title"
                         id="newSettlementModalLabel"
                     >
 
                         <i class="fas fa-plus"></i>
+
                         Add New Vendor Settlement
 
                     </h5>
@@ -385,7 +437,9 @@
 
                     </button>
 
+
                 </div>
+
 
 
                 <!-- ================================================= -->
@@ -395,7 +449,9 @@
                 <div class="modal-body">
 
 
-                    <!-- Vendor ID -->
+                    <!-- ================================= -->
+                    <!-- VENDOR ID -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -409,19 +465,26 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="vendor_id"
                             class="form-control"
+
                             value="{{ old('vendor_id') }}"
+
                             placeholder="Enter vendor ID"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Booking ID -->
+
+                    <!-- ================================= -->
+                    <!-- BOOKING ID -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -435,19 +498,26 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="booking_id"
                             class="form-control"
+
                             value="{{ old('booking_id') }}"
+
                             placeholder="Enter booking ID"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Payment Amount -->
+
+                    <!-- ================================= -->
+                    <!-- PAYMENT AMOUNT -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -461,21 +531,30 @@
 
                         </label>
 
+
                         <input
                             type="number"
                             name="payment_amount"
                             class="form-control"
+
                             value="{{ old('payment_amount') }}"
+
                             placeholder="Enter payment amount"
+
                             step="0.01"
+
                             min="0"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Payment Remarks -->
+
+                    <!-- ================================= -->
+                    <!-- PAYMENT REMARKS -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -489,11 +568,14 @@
 
                         </label>
 
+
                         <textarea
                             name="payment_remarks"
                             class="form-control"
                             rows="4"
+
                             placeholder="Enter payment remarks"
+
                             required
                         >{{ old('payment_remarks') }}</textarea>
 
@@ -503,11 +585,13 @@
                 </div>
 
 
+
                 <!-- ================================================= -->
                 <!-- MODAL FOOTER -->
                 <!-- ================================================= -->
 
                 <div class="modal-footer">
+
 
                     <button
                         type="button"
@@ -526,16 +610,20 @@
                     >
 
                         <i class="fas fa-save"></i>
+
                         Save Settlement
 
                     </button>
+
 
                 </div>
 
 
             </div>
 
+
         </form>
+
 
     </div>
 
@@ -561,6 +649,7 @@
         role="document"
     >
 
+
         <form
             id="editSettlementForm"
             method="POST"
@@ -580,12 +669,14 @@
 
                 <div class="modal-header">
 
+
                     <h5
                         class="modal-title"
                         id="editSettlementModalLabel"
                     >
 
                         <i class="fas fa-edit"></i>
+
                         Edit Vendor Settlement
 
                     </h5>
@@ -601,7 +692,9 @@
 
                     </button>
 
+
                 </div>
+
 
 
                 <!-- ================================================= -->
@@ -611,7 +704,9 @@
                 <div class="modal-body">
 
 
-                    <!-- Vendor ID -->
+                    <!-- ================================= -->
+                    <!-- VENDOR ID -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -625,18 +720,25 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="vendor_id"
                             id="edit_vendor_id"
                             class="form-control"
+
+                            placeholder="Enter vendor ID"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Booking ID -->
+
+                    <!-- ================================= -->
+                    <!-- BOOKING ID -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -650,18 +752,25 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="booking_id"
                             id="edit_booking_id"
                             class="form-control"
+
+                            placeholder="Enter booking ID"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Payment Amount -->
+
+                    <!-- ================================= -->
+                    <!-- PAYMENT AMOUNT -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -675,20 +784,29 @@
 
                         </label>
 
+
                         <input
                             type="number"
                             name="payment_amount"
                             id="edit_payment_amount"
                             class="form-control"
+
                             step="0.01"
+
                             min="0"
+
+                            placeholder="Enter payment amount"
+
                             required
                         >
 
                     </div>
 
 
-                    <!-- Payment Remarks -->
+
+                    <!-- ================================= -->
+                    <!-- PAYMENT REMARKS -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -702,11 +820,16 @@
 
                         </label>
 
+
                         <textarea
                             name="payment_remarks"
                             id="edit_payment_remarks"
                             class="form-control"
+
                             rows="4"
+
+                            placeholder="Enter payment remarks"
+
                             required
                         ></textarea>
 
@@ -716,11 +839,13 @@
                 </div>
 
 
+
                 <!-- ================================================= -->
                 <!-- MODAL FOOTER -->
                 <!-- ================================================= -->
 
                 <div class="modal-footer">
+
 
                     <button
                         type="button"
@@ -739,21 +864,106 @@
                     >
 
                         <i class="fas fa-save"></i>
+
                         Update Settlement
 
                     </button>
+
 
                 </div>
 
 
             </div>
 
+
         </form>
+
 
     </div>
 
 </div>
 
+
+
+<!-- ===================================================== -->
+<!-- EDIT SETTLEMENT JAVASCRIPT -->
+<!-- ===================================================== -->
+
+<script>
+
+$(document).ready(function () {
+
+
+    // =====================================================
+    // EDIT SETTLEMENT BUTTON
+    // =====================================================
+
+    $('.editSettlementBtn').on('click', function () {
+
+
+        // =============================================
+        // GET DATABASE ID
+        // =============================================
+
+        var id = $(this).attr('data-id');
+
+
+        // =============================================
+        // GET SETTLEMENT DATA
+        // =============================================
+
+        var vendorId =
+            $(this).attr('data-vendor-id');
+
+
+        var bookingId =
+            $(this).attr('data-booking-id');
+
+
+        var paymentAmount =
+            $(this).attr('data-payment-amount');
+
+
+        var paymentRemarks =
+            $(this).attr('data-payment-remarks');
+
+
+        // =============================================
+        // FILL EDIT FORM
+        // =============================================
+
+        $('#edit_vendor_id')
+            .val(vendorId);
+
+
+        $('#edit_booking_id')
+            .val(bookingId);
+
+
+        $('#edit_payment_amount')
+            .val(paymentAmount);
+
+
+        $('#edit_payment_remarks')
+            .val(paymentRemarks);
+
+
+        // =============================================
+        // SET UPDATE FORM ACTION
+        // =============================================
+
+        $('#editSettlementForm').attr(
+            'action',
+            '{{ url('/vendor-settlement') }}/' + id
+        );
+
+
+    });
+
+
+});
+
+</script>
 
 
 @endsection

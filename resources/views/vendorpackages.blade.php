@@ -55,6 +55,7 @@
 
                     <div class="card">
 
+
                         <!-- ================================================= -->
                         <!-- CARD HEADER -->
                         <!-- ================================================= -->
@@ -65,17 +66,22 @@
                                 Vendor Package List
                             </h3>
 
+
                             <button
                                 type="button"
                                 class="btn btn-primary btn-sm"
                                 data-toggle="modal"
                                 data-target="#newPackageModal"
                             >
+
                                 <i class="fas fa-plus"></i>
+
                                 New Package
+
                             </button>
 
                         </div>
+
 
 
                         <!-- ================================================= -->
@@ -93,12 +99,15 @@
                                     class="close"
                                     data-dismiss="alert"
                                 >
+
                                     <span>&times;</span>
+
                                 </button>
 
                             </div>
 
                         @endif
+
 
 
                         <!-- ================================================= -->
@@ -116,12 +125,15 @@
                                     class="close"
                                     data-dismiss="alert"
                                 >
+
                                     <span>&times;</span>
+
                                 </button>
 
                             </div>
 
                         @endif
+
 
 
                         <!-- ================================================= -->
@@ -149,6 +161,7 @@
                         @endif
 
 
+
                         <!-- ================================================= -->
                         <!-- PACKAGE TABLE -->
                         <!-- ================================================= -->
@@ -157,7 +170,9 @@
 
                             <div class="table-responsive">
 
-                                <table class="table table-bordered table-striped table-hover">
+                                <table
+                                    class="table table-bordered table-striped table-hover"
+                                >
 
                                     <thead>
 
@@ -198,44 +213,80 @@
 
                                     <tbody>
 
-                                        @forelse($vendorpackages as $vendorpackage)
+
+                                        @forelse($vendorpackages->sortBy('id')->values() as $vendorpackage)
+
 
                                             <tr>
 
-                                                <!-- ID -->
+
+                                                <!-- ================================= -->
+                                                <!-- DISPLAY NUMBER -->
+                                                <!-- ================================= -->
+
                                                 <td>
-                                                    {{ $vendorpackage->id }}
+
+                                                    {{ $loop->iteration }}
+
                                                 </td>
 
 
-                                                <!-- Package Name -->
+
+                                                <!-- ================================= -->
+                                                <!-- PACKAGE NAME -->
+                                                <!-- ================================= -->
+
                                                 <td>
+
                                                     {{ $vendorpackage->package_name }}
+
                                                 </td>
 
 
-                                                <!-- Service ID -->
+
+                                                <!-- ================================= -->
+                                                <!-- SERVICE ID -->
+                                                <!-- ================================= -->
+
                                                 <td>
+
                                                     {{ $vendorpackage->service_id }}
+
                                                 </td>
 
 
-                                                <!-- Package Bio -->
+
+                                                <!-- ================================= -->
+                                                <!-- PACKAGE BIO -->
+                                                <!-- ================================= -->
+
                                                 <td>
+
                                                     {{ $vendorpackage->package_bio }}
+
                                                 </td>
 
 
-                                                <!-- Package Amount -->
+
+                                                <!-- ================================= -->
+                                                <!-- PACKAGE AMOUNT -->
+                                                <!-- ================================= -->
+
                                                 <td>
+
                                                     ₹ {{ number_format($vendorpackage->package_amount, 2) }}
+
                                                 </td>
 
 
-                                                <!-- Offer Price -->
+
+                                                <!-- ================================= -->
+                                                <!-- OFFER PRICE -->
+                                                <!-- ================================= -->
+
                                                 <td>
 
-                                                    @if($vendorpackage->package_offer_price !== null)
+                                                    @if($vendorpackage->package_offer_price !== null && $vendorpackage->package_offer_price !== '')
 
                                                         ₹ {{ number_format($vendorpackage->package_offer_price, 2) }}
 
@@ -250,11 +301,15 @@
                                                 </td>
 
 
-                                                <!-- ================================================= -->
-                                                <!-- EDIT BUTTON -->
-                                                <!-- ================================================= -->
+
+                                                <!-- ================================= -->
+                                                <!-- ACTION -->
+                                                <!-- ================================= -->
 
                                                 <td class="text-center">
+
+
+                                                    <!-- EDIT BUTTON -->
 
                                                     <button
                                                         type="button"
@@ -264,13 +319,17 @@
                                                     >
 
                                                         <i class="fas fa-edit"></i>
+
                                                         Edit
 
                                                     </button>
 
+
                                                 </td>
 
+
                                             </tr>
+
 
 
                                             <!-- ===================================================== -->
@@ -291,6 +350,7 @@
                                                     role="document"
                                                 >
 
+
                                                     <form
                                                         action="{{ route('vendorpackages.update', $vendorpackage->id) }}"
                                                         method="POST"
@@ -304,16 +364,24 @@
                                                         <div class="modal-content">
 
 
-                                                            <!-- Modal Header -->
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL HEADER -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-header">
+
 
                                                                 <h5
                                                                     class="modal-title"
                                                                     id="editPackageModalLabel{{ $vendorpackage->id }}"
                                                                 >
+
+                                                                    <i class="fas fa-edit"></i>
+
                                                                     Edit Vendor Package
+
                                                                 </h5>
+
 
                                                                 <button
                                                                     type="button"
@@ -325,87 +393,130 @@
 
                                                                 </button>
 
+
                                                             </div>
 
 
-                                                            <!-- Modal Body -->
+
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL BODY -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-body">
 
 
-                                                                <!-- Package Name -->
+                                                                <!-- ================================= -->
+                                                                <!-- PACKAGE NAME -->
+                                                                <!-- ================================= -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Package Name
-                                                                        <span class="text-danger">*</span>
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="text"
                                                                         name="package_name"
                                                                         class="form-control"
                                                                         value="{{ $vendorpackage->package_name }}"
+                                                                        placeholder="Enter package name"
                                                                         required
                                                                     >
 
                                                                 </div>
 
 
-                                                                <!-- Service ID -->
+
+                                                                <!-- ================================= -->
+                                                                <!-- SERVICE ID -->
+                                                                <!-- ================================= -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Service ID
-                                                                        <span class="text-danger">*</span>
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="text"
                                                                         name="service_id"
                                                                         class="form-control"
                                                                         value="{{ $vendorpackage->service_id }}"
+                                                                        placeholder="Enter service ID"
                                                                         required
                                                                     >
 
                                                                 </div>
 
 
-                                                                <!-- Package Bio -->
+
+                                                                <!-- ================================= -->
+                                                                <!-- PACKAGE BIO -->
+                                                                <!-- ================================= -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Package Bio
-                                                                        <span class="text-danger">*</span>
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <textarea
                                                                         name="package_bio"
                                                                         class="form-control"
                                                                         rows="4"
+                                                                        placeholder="Enter package description"
                                                                         required
                                                                     >{{ $vendorpackage->package_bio }}</textarea>
 
                                                                 </div>
 
 
-                                                                <!-- Package Amount -->
+
+                                                                <!-- ================================= -->
+                                                                <!-- PACKAGE AMOUNT -->
+                                                                <!-- ================================= -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Package Amount
-                                                                        <span class="text-danger">*</span>
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="number"
                                                                         name="package_amount"
                                                                         class="form-control"
                                                                         value="{{ $vendorpackage->package_amount }}"
+                                                                        placeholder="Enter package amount"
                                                                         step="0.01"
                                                                         min="0"
                                                                         required
@@ -414,22 +525,36 @@
                                                                 </div>
 
 
-                                                                <!-- Offer Price -->
+
+                                                                <!-- ================================= -->
+                                                                <!-- OFFER PRICE -->
+                                                                <!-- ================================= -->
 
                                                                 <div class="form-group">
 
                                                                     <label>
+
                                                                         Package Offer Price
+
                                                                     </label>
+
 
                                                                     <input
                                                                         type="number"
                                                                         name="package_offer_price"
                                                                         class="form-control"
                                                                         value="{{ $vendorpackage->package_offer_price }}"
+                                                                        placeholder="Enter offer price"
                                                                         step="0.01"
                                                                         min="0"
                                                                     >
+
+
+                                                                    <small class="text-muted">
+
+                                                                        Leave empty if there is no offer price.
+
+                                                                    </small>
 
                                                                 </div>
 
@@ -437,17 +562,24 @@
                                                             </div>
 
 
-                                                            <!-- Modal Footer -->
+
+                                                            <!-- ========================================= -->
+                                                            <!-- MODAL FOOTER -->
+                                                            <!-- ========================================= -->
 
                                                             <div class="modal-footer">
+
 
                                                                 <button
                                                                     type="button"
                                                                     class="btn btn-secondary"
                                                                     data-dismiss="modal"
                                                                 >
+
                                                                     Close
+
                                                                 </button>
+
 
                                                                 <button
                                                                     type="submit"
@@ -455,22 +587,32 @@
                                                                 >
 
                                                                     <i class="fas fa-save"></i>
+
                                                                     Update Package
 
                                                                 </button>
+
 
                                                             </div>
 
 
                                                         </div>
 
+
                                                     </form>
+
 
                                                 </div>
 
                                             </div>
 
+
                                         @empty
+
+
+                                            <!-- ================================= -->
+                                            <!-- NO PACKAGES -->
+                                            <!-- ================================= -->
 
                                             <tr>
 
@@ -478,12 +620,16 @@
                                                     colspan="7"
                                                     class="text-center text-muted"
                                                 >
+
                                                     No vendor packages found.
+
                                                 </td>
 
                                             </tr>
 
+
                                         @endforelse
+
 
                                     </tbody>
 
@@ -492,6 +638,7 @@
                             </div>
 
                         </div>
+
 
 
                         <!-- ================================================= -->
@@ -509,6 +656,7 @@
 
                         </div>
 
+
                     </div>
 
                 </div>
@@ -523,9 +671,9 @@
 
 
 
-<!-- ===================================================== -->
+<!-- ========================================================= -->
 <!-- ADD NEW PACKAGE MODAL -->
-<!-- ===================================================== -->
+<!-- ========================================================= -->
 
 <div
     class="modal fade"
@@ -541,6 +689,7 @@
         role="document"
     >
 
+
         <form
             action="{{ route('vendorpackages.store') }}"
             method="POST"
@@ -552,16 +701,24 @@
             <div class="modal-content">
 
 
-                <!-- Modal Header -->
+                <!-- ========================================= -->
+                <!-- MODAL HEADER -->
+                <!-- ========================================= -->
 
                 <div class="modal-header">
+
 
                     <h5
                         class="modal-title"
                         id="newPackageModalLabel"
                     >
+
+                        <i class="fas fa-box"></i>
+
                         Add New Vendor Package
+
                     </h5>
+
 
                     <button
                         type="button"
@@ -573,15 +730,21 @@
 
                     </button>
 
+
                 </div>
 
 
-                <!-- Modal Body -->
+
+                <!-- ========================================= -->
+                <!-- MODAL BODY -->
+                <!-- ========================================= -->
 
                 <div class="modal-body">
 
 
-                    <!-- Package Name -->
+                    <!-- ================================= -->
+                    <!-- PACKAGE NAME -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -595,6 +758,7 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="package_name"
@@ -607,7 +771,10 @@
                     </div>
 
 
-                    <!-- Service ID -->
+
+                    <!-- ================================= -->
+                    <!-- SERVICE ID -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -621,6 +788,7 @@
 
                         </label>
 
+
                         <input
                             type="text"
                             name="service_id"
@@ -633,7 +801,10 @@
                     </div>
 
 
-                    <!-- Package Bio -->
+
+                    <!-- ================================= -->
+                    <!-- PACKAGE BIO -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -647,6 +818,7 @@
 
                         </label>
 
+
                         <textarea
                             name="package_bio"
                             class="form-control"
@@ -658,7 +830,10 @@
                     </div>
 
 
-                    <!-- Package Amount -->
+
+                    <!-- ================================= -->
+                    <!-- PACKAGE AMOUNT -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
@@ -671,6 +846,7 @@
                             </span>
 
                         </label>
+
 
                         <input
                             type="number"
@@ -686,13 +862,19 @@
                     </div>
 
 
-                    <!-- Offer Price -->
+
+                    <!-- ================================= -->
+                    <!-- OFFER PRICE -->
+                    <!-- ================================= -->
 
                     <div class="form-group">
 
                         <label>
+
                             Package Offer Price
+
                         </label>
+
 
                         <input
                             type="number"
@@ -704,8 +886,11 @@
                             min="0"
                         >
 
+
                         <small class="text-muted">
+
                             Leave empty if there is no offer price.
+
                         </small>
 
                     </div>
@@ -714,17 +899,24 @@
                 </div>
 
 
-                <!-- Modal Footer -->
+
+                <!-- ========================================= -->
+                <!-- MODAL FOOTER -->
+                <!-- ========================================= -->
 
                 <div class="modal-footer">
+
 
                     <button
                         type="button"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
+
                         Close
+
                     </button>
+
 
                     <button
                         type="submit"
@@ -732,16 +924,20 @@
                     >
 
                         <i class="fas fa-save"></i>
+
                         Save Package
 
                     </button>
+
 
                 </div>
 
 
             </div>
 
+
         </form>
+
 
     </div>
 

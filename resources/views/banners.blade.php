@@ -268,7 +268,7 @@
 
                                                         <button
                                                             type="submit"
-                                                            class="btn btn-danger btn-sm"
+                                                            class="btn btn-primary btn-sm"
                                                         >
 
                                                             <i class="fas fa-trash"></i>
