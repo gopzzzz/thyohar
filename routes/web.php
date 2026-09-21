@@ -20,6 +20,7 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\BookingMastersController;
 use App\Http\Controllers\VendorBankdetailsController;
 use App\Http\Controllers\VendorServicesController;
+use App\Http\Controllers\WebController;
 
 
 
@@ -30,10 +31,17 @@ use App\Http\Controllers\VendorServicesController;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+ Route::get('/', [WebController::class, 'index']);
+ Route::get('/index', [WebController::class, 'index'])->name('index');
+ Route::get('/planners', [WebController::class, 'planners'])->name('planners');
+ Route::get('/planner-details', [WebController::class, 'plannerdetails'])->name('planner-details');
+ Route::get('/book-package', [WebController::class, 'bookpackage'])->name('book-package');
+Route::get('/booking-success', [WebController::class, 'booknow'])->name('booking-success');
+Route::get('/userlogin', [WebController::class, 'userlogin'])->name('userlogin');
+Route::get('/user-registration', [WebController::class, 'userregistration'])->name('user-registration');
+Route::get('/forget-password', [WebController::class, 'forgetpassword'])->name('forgetpassword');
+ 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
