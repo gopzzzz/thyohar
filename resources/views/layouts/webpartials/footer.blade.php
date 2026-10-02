@@ -2,7 +2,7 @@
     <div class="container footer__top">
       <div class="footer__brand">
         <a class="brand brand--footer" href="#home" aria-label="Thyohar home">
-          <img src="assets/thyohar-logo.jpg" alt="Thyohar" width="998" height="375" loading="lazy">
+          <img src="{{ asset('web/assets/thyohar-logo.jpg') }}" alt="Thyohar" width="998" height="375" loading="lazy">
         </a>
         <p>Great celebrations begin with the right people.</p>
       </div>
@@ -40,7 +40,7 @@
   <dialog class="provider-modal" id="providerModal" aria-labelledby="modalProviderName">
     <button class="modal-close" id="modalClose" type="button" aria-label="Close provider profile">×</button>
     <div class="modal__header">
-      <img id="modalImage" src="assets/profile-arjun.jpg" alt="" width="600" height="600">
+      <img id="modalImage" src="{{ asset('web/assets/profile-arjun.jpg') }}" alt="" width="600" height="600">
       <div>
         <p id="modalCategory" class="provider-card__category"></p>
         <h2 id="modalProviderName">Provider profile</h2>

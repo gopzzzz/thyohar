@@ -31,9 +31,9 @@
 
         <div class="hero__proof" role="group" aria-label="Customer rating">
           <div class="proof-avatars" aria-hidden="true">
-            <img src="assets/profile-aanya.jpg" alt="" width="44" height="44">
-            <img src="assets/profile-kabir.jpg" alt="" width="44" height="44">
-            <img src="assets/profile-meera.jpg" alt="" width="44" height="44">
+            <img src="{{ asset('web/assets/profile-aanya.jpg') }}"alt="" width="44" height="44">
+            <img src="{{ asset('web/assets/profile-kabir.jpg') }}" alt="" width="44" height="44">
+            <img src="{{ asset('web/assets/profile-meera.jpg') }}" alt="" width="44" height="44">
           </div>
           <div>
             <div class="stars" role="img" aria-label="4.9 out of 5 stars">★★★★★</div>
@@ -108,7 +108,7 @@
 
         <div class="services-grid">
           <button class="service-card service-card--featured" type="button" data-service="photography" data-reveal>
-            <img src="assets/service-photography.jpg" alt="Professional camera and lenses" width="1000" height="1250" loading="lazy">
+            <img src="{{ asset('web/assets/service-photography.jpg') }}" alt="Professional camera and lenses" width="1000" height="1250" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
             <span class="service-card__count">86 professionals</span>
             <span class="service-card__body">
@@ -119,7 +119,7 @@
           </button>
 
           <button class="service-card" type="button" data-service="decoration" data-reveal>
-            <img src="assets/service-decoration.jpg" alt="Elegant floral event table setup" width="1000" height="667" loading="lazy">
+            <img src="{{ asset('web/assets/service-decoration.jpg') }}" alt="Elegant floral event table setup" width="1000" height="667" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
             <span class="service-card__count">72 professionals</span>
             <span class="service-card__body">
@@ -130,7 +130,7 @@
           </button>
 
           <button class="service-card" type="button" data-service="catering" data-reveal>
-            <img src="assets/service-catering.jpg" alt="Beautifully presented catering buffet" width="1000" height="667" loading="lazy">
+            <img src="{{ asset('web/assets/service-catering.jpg') }}" alt="Beautifully presented catering buffet" width="1000" height="667" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
             <span class="service-card__count">64 professionals</span>
             <span class="service-card__body">
@@ -141,7 +141,7 @@
           </button>
 
           <button class="service-card" type="button" data-service="beauty" data-reveal>
-            <img src="assets/service-makeup.jpg" alt="Professional makeup collection" width="1000" height="667" loading="lazy">
+            <img src="{{ asset('web/assets/service-makeup.jpg') }}" alt="Professional makeup collection" width="1000" height="667" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
             <span class="service-card__count">58 professionals</span>
             <span class="service-card__body">
@@ -152,7 +152,7 @@
           </button>
 
           <button class="service-card" type="button" data-service="fashion" data-reveal>
-            <img src="assets/service-fashion.jpg" alt="Detailed bridal occasion wear" width="1000" height="1500" loading="lazy">
+            <img src="{{ asset('web/assets/service-fashion.jpg') }}" alt="Detailed bridal occasion wear" width="1000" height="1500" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
             <span class="service-card__count">49 professionals</span>
             <span class="service-card__body">
@@ -169,10 +169,10 @@
       <div class="container about__grid">
         <div class="about__visual" data-reveal>
           <div class="about__image about__image--main">
-            <img src="assets/story-garden.jpg" alt="Beautifully styled celebration table" width="1400" height="933" loading="lazy">
+            <img src="{{ asset('web/assets/story-garden.jpg') }}" alt="Beautifully styled celebration table" width="1400" height="933" loading="lazy">
           </div>
           <div class="about__image about__image--small">
-            <img src="assets/story-engagement.jpg" alt="Newly married couple holding hands" width="1400" height="933" loading="lazy">
+           <img src="{{ asset('web/assets/story-engagement.jpg') }}" alt="Newly married couple holding hands" width="1400" height="933" loading="lazy">
           </div>
           <div class="about__badge">
             <strong>1,200+</strong>
@@ -242,7 +242,7 @@
               </button>
             </div>
             <div class="provider-card__identity">
-              <img src="assets/profile-arjun.jpg" alt="Arjun Mehta of Aakriti Frames" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-arjun.jpg') }}" alt="Arjun Mehta of Aakriti Frames" width="600" height="600" loading="lazy">
               <div>
                 <p class="provider-card__category">Photography &amp; Film</p>
                 <h3>Aakriti Frames <span class="verified" role="img" title="Verified professional" aria-label="Verified professional">✓</span></h3>
@@ -266,7 +266,7 @@
               </button>
             </div>
             <div class="provider-card__identity">
-              <img src="assets/profile-aanya.jpg" alt="Aanya Kapoor of Gulmohar Gatherings" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-aanya.jpg') }}" alt="Aanya Kapoor of Gulmohar Gatherings" width="600" height="600" loading="lazy">
               <div>
                 <p class="provider-card__category">Décor &amp; Styling</p>
                 <h3>Gulmohar Gatherings <span class="verified" role="img" title="Verified professional" aria-label="Verified professional">✓</span></h3>
@@ -290,7 +290,7 @@
               </button>
             </div>
             <div class="provider-card__identity">
-              <img src="assets/profile-kabir.jpg" alt="Kabir Khanna of Saffron and Sage" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-kabir.jpg') }}" alt="Kabir Khanna of Saffron and Sage" width="600" height="600" loading="lazy">
               <div>
                 <p class="provider-card__category">Catering &amp; Menus</p>
                 <h3>Saffron &amp; Sage <span class="verified" role="img" title="Verified professional" aria-label="Verified professional">✓</span></h3>
@@ -314,7 +314,7 @@
               </button>
             </div>
             <div class="provider-card__identity">
-              <img src="assets/profile-riya.jpg" alt="Riya Bansal of Noor Artistry" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-riya.jpg') }}" alt="Riya Bansal of Noor Artistry" width="600" height="600" loading="lazy">
               <div>
                 <p class="provider-card__category">Makeup &amp; Beauty</p>
                 <h3>Noor Artistry <span class="verified" role="img" title="Verified professional" aria-label="Verified professional">✓</span></h3>
@@ -338,7 +338,7 @@
               </button>
             </div>
             <div class="provider-card__identity">
-              <img src="assets/profile-meera.jpg" alt="Meera Iyer of Vastram Atelier" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-meera.jpg') }}" alt="Meera Iyer of Vastram Atelier" width="600" height="600" loading="lazy">
               <div>
                 <p class="provider-card__category">Bridal &amp; Groom Wear</p>
                 <h3>Vastram Atelier <span class="verified" role="img" title="Verified professional" aria-label="Verified professional">✓</span></h3>
@@ -381,12 +381,12 @@
         <div class="planner-grid" id="plannerGrid">
           <article class="planner-card" data-search="aanya kapoor gulmohar events delhi ncr floral luxury wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-decoration.jpg" alt="Elegant event décor by Gulmohar Events" width="1000" height="667" loading="lazy">
+              <img src="{{ asset('web/assets/service-decoration.jpg') }}" alt="Elegant event décor by Gulmohar Events" width="1000" height="667" loading="lazy">
               <span>Luxury Weddings</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/profile-aanya.jpg" alt="Aanya Kapoor" width="600" height="600" loading="lazy">
+                <img src="{{ asset('web/assets/profile-aanya.jpg') }}" alt="Aanya Kapoor" width="600" height="600" loading="lazy">
                 <div><h3>Aanya Kapoor</h3><p>Gulmohar Events · Delhi NCR</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.9 out of 5 stars">★★★★★</span><strong>4.9</strong><small>186 reviews</small></div>
@@ -398,12 +398,12 @@
 
           <article class="planner-card" data-search="arjun mehta aakriti celebrations jaipur destination palace wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/story-engagement.jpg" alt="Garden wedding planned by Aakriti Celebrations" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-engagement.jpg') }}" alt="Garden wedding planned by Aakriti Celebrations" width="1400" height="933" loading="lazy">
               <span>Destination Weddings</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/profile-arjun.jpg" alt="Arjun Mehta" width="600" height="600" loading="lazy">
+                <img src="{{ asset('web/assets/profile-arjun.jpg') }}" alt="Arjun Mehta" width="600" height="600" loading="lazy">
                 <div><h3>Arjun Mehta</h3><p>Aakriti Celebrations · Jaipur</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.9 out of 5 stars">★★★★★</span><strong>4.9</strong><small>172 reviews</small></div>
@@ -415,12 +415,12 @@
 
           <article class="planner-card" data-search="meera iyer vastram vows bengaluru south indian cultural wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/hero-wedding.jpg" alt="Wedding celebration arranged by Vastram and Vows" width="1920" height="1280" loading="lazy">
+              <img src="{{ asset('web/assets/hero-wedding.jpg') }}" alt="Wedding celebration arranged by Vastram and Vows" width="1920" height="1280" loading="lazy">
               <span>Cultural Celebrations</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/profile-meera.jpg" alt="Meera Iyer" width="600" height="600" loading="lazy">
+                <img src="{{ asset('web/assets/profile-meera.jpg') }}" alt="Meera Iyer" width="600" height="600" loading="lazy">
                 <div><h3>Meera Iyer</h3><p>Vastram &amp; Vows · Bengaluru</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.8 out of 5 stars">★★★★★</span><strong>4.8</strong><small>139 reviews</small></div>
@@ -432,12 +432,12 @@
 
           <article class="planner-card" data-search="kabir khanna saffron soirees mumbai food luxury social event" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-catering.jpg" alt="Curated celebration dining by Saffron Soirées" width="1000" height="667" loading="lazy">
+            <img src="{{ asset('web/assets/service-catering.jpg') }}" alt="Curated celebration dining by Saffron Soirées" width="1000" height="667" loading="lazy">
               <span>Food-led Events</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/profile-kabir.jpg" alt="Kabir Khanna" width="600" height="600" loading="lazy">
+                <img src="{{ asset('web/assets/profile-kabir.jpg') }}" alt="Kabir Khanna" width="600" height="600" loading="lazy">
                 <div><h3>Kabir Khanna</h3><p>Saffron Soirées · Mumbai</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.9 out of 5 stars">★★★★★</span><strong>4.9</strong><small>204 reviews</small></div>
@@ -449,12 +449,12 @@
 
           <article class="planner-card" data-search="riya bansal noor weddings lucknow heritage intimate wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-fashion.jpg" alt="Elegant heritage wedding styling by Noor Weddings" width="1000" height="1500" loading="lazy">
+              <img src="{{ asset('web/assets/service-fashion.jpg') }}" alt="Elegant heritage wedding styling by Noor Weddings" width="1000" height="1500" loading="lazy">
               <span>Heritage Weddings</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/profile-riya.jpg" alt="Riya Bansal" width="600" height="600" loading="lazy">
+              <img src="{{ asset('web/assets/profile-riya.jpg') }}" alt="Riya Bansal" width="600" height="600" loading="lazy">
                 <div><h3>Riya Bansal</h3><p>Noor Weddings · Lucknow</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.9 out of 5 stars">★★★★★</span><strong>4.9</strong><small>126 reviews</small></div>
@@ -466,12 +466,12 @@
 
           <article class="planner-card" data-search="dev malhotra celebration company chandigarh large wedding production" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/story-garden.jpg" alt="Large celebration styled by The Celebration Company" width="1400" height="933" loading="lazy">
+             <img src="{{ asset('web/assets/story-garden.jpg') }}" alt="Large celebration styled by The Celebration Company" width="1400" height="933" loading="lazy">
               <span>Large Celebrations</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-dev.jpg" alt="Dev Malhotra" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-dev.jpg') }}" alt="Dev Malhotra" width="700" height="700" loading="lazy">
                 <div><h3>Dev Malhotra</h3><p>The Celebration Co. · Chandigarh</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.7 out of 5 stars">★★★★★</span><strong>4.7</strong><small>114 reviews</small></div>
@@ -483,12 +483,12 @@
 
           <article class="planner-card" data-search="ishita rao mango leaf events hyderabad multicultural sustainable wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-makeup.jpg" alt="Colour-led celebration details by Mango Leaf Events" width="1000" height="667" loading="lazy">
+             <img src="{{ asset('web/assets/service-makeup.jpg') }}" alt="Colour-led celebration details by Mango Leaf Events" width="1000" height="667" loading="lazy">
               <span>Multicultural Events</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-ishita.jpg" alt="Ishita Rao" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-ishita.jpg') }}" alt="Ishita Rao" width="700" height="700" loading="lazy">
                 <div><h3>Ishita Rao</h3><p>Mango Leaf Events · Hyderabad</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.8 out of 5 stars">★★★★★</span><strong>4.8</strong><small>102 reviews</small></div>
@@ -500,12 +500,12 @@
 
           <article class="planner-card" data-search="neel verma white lotus planners udaipur destination palace luxury wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/story-palace.jpg" alt="Wedding rings from a White Lotus Planners celebration" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-palace.jpg') }}" alt="Wedding rings from a White Lotus Planners celebration" width="1400" height="933" loading="lazy">
               <span>Palace Weddings</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-neel.jpg" alt="Neel Verma" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-neel.jpg') }}" alt="Neel Verma" width="700" height="700" loading="lazy">
                 <div><h3>Neel Verma</h3><p>White Lotus Planners · Udaipur</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.8 out of 5 stars">★★★★★</span><strong>4.8</strong><small>157 reviews</small></div>
@@ -517,12 +517,12 @@
 
           <article class="planner-card" data-search="tara sen paperboat celebrations kolkata intimate art creative wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-photography.jpg" alt="Creative celebration production by Paperboat Celebrations" width="1000" height="1250" loading="lazy">
+              <img src="{{ asset('web/assets/service-photography.jpg') }}" alt="Creative celebration production by Paperboat Celebrations" width="1000" height="1250" loading="lazy">
               <span>Intimate Weddings</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-tara.jpg" alt="Tara Sen" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-tara.jpg') }}" alt="Tara Sen" width="700" height="700" loading="lazy">
                 <div><h3>Tara Sen</h3><p>Paperboat Celebrations · Kolkata</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.7 out of 5 stars">★★★★★</span><strong>4.7</strong><small>91 reviews</small></div>
@@ -534,12 +534,12 @@
 
           <article class="planner-card" data-search="aarav joshi marigold project pune sustainable outdoor modern wedding" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/service-decoration.jpg" alt="Sustainable floral décor by The Marigold Project" width="1000" height="667" loading="lazy">
+              <img src="{{ asset('web/assets/service-decoration.jpg') }}" alt="Sustainable floral décor by The Marigold Project" width="1000" height="667" loading="lazy">
               <span>Sustainable Events</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-aarav.jpg" alt="Aarav Joshi" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-aarav.jpg') }}" alt="Aarav Joshi" width="700" height="700" loading="lazy">
                 <div><h3>Aarav Joshi</h3><p>The Marigold Project · Pune</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.9 out of 5 stars">★★★★★</span><strong>4.9</strong><small>118 reviews</small></div>
@@ -551,12 +551,12 @@
 
           <article class="planner-card" data-search="zoya mirza mehfil more delhi hyderabad mehendi sangeet entertainment" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/hero-wedding.jpg" alt="Evening celebration planned by Mehfil and More" width="1920" height="1280" loading="lazy">
+              <img src="{{ asset('web/assets/hero-wedding.jpg') }}" alt="Evening celebration planned by Mehfil and More" width="1920" height="1280" loading="lazy">
               <span>Mehendi &amp; Sangeet</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-zoya.jpg" alt="Zoya Mirza" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-zoya.jpg') }}" alt="Zoya Mirza" width="700" height="700" loading="lazy">
                 <div><h3>Zoya Mirza</h3><p>Mehfil &amp; More · Delhi / Hyderabad</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.8 out of 5 stars">★★★★★</span><strong>4.8</strong><small>145 reviews</small></div>
@@ -568,18 +568,18 @@
 
           <article class="planner-card" data-search="vikram sethi gather glow goa beach wedding corporate celebration" data-reveal>
             <div class="planner-card__cover">
-              <img src="assets/story-garden.jpg" alt="Sunlit gathering planned by Gather and Glow" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-garden.jpg') }}" alt="Sunlit gathering planned by Gather and Glow" width="1400" height="933" loading="lazy">
               <span>Beach Celebrations</span>
             </div>
             <div class="planner-card__content">
               <div class="planner-card__identity">
-                <img src="assets/planner-vikram.jpg" alt="Vikram Sethi" width="700" height="700" loading="lazy">
+                <img src="{{ asset('web/assets/planner-vikram.jpg') }}" alt="Vikram Sethi" width="700" height="700" loading="lazy">
                 <div><h3>Vikram Sethi</h3><p>Gather &amp; Glow · Goa</p></div>
               </div>
               <div class="planner-card__rating"><span role="img" aria-label="4.8 out of 5 stars">★★★★★</span><strong>4.8</strong><small>132 reviews</small></div>
               <p class="planner-card__bio">Breezy beach weddings and social events designed for golden hours, good music, and happy guests.</p>
               <div class="planner-card__tags"><span>Beach venues</span><span>Weekend events</span></div>
-              <div class="planner-card__footer"><span>9 years experience</span><a href="planner-details.html?planner=vikram-sethi">More Details <b aria-hidden="true">→</b></a></div>
+              <div class="planner-card__footer"><span>9 years experience</span><a href="{{url('planner-details')}}">More Details <b aria-hidden="true">→</b></a></div>
             </div>
           </article>
         </div>
@@ -611,7 +611,7 @@
         <div class="story-track" id="storyTrack">
           <article class="story-card" data-reveal>
             <div class="story-card__image">
-              <img src="assets/story-engagement.jpg" alt="Bride and groom holding hands at their garden wedding" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-engagement.jpg') }}" alt="Bride and groom holding hands at their garden wedding" width="1400" height="933" loading="lazy">
               <span>Wedding</span>
             </div>
             <div class="story-card__body">
@@ -624,7 +624,7 @@
 
           <article class="story-card" data-reveal>
             <div class="story-card__image">
-              <img src="assets/story-garden.jpg" alt="Long celebration table with flowers and place settings" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-garden.jpg') }}" alt="Long celebration table with flowers and place settings" width="1400" height="933" loading="lazy">
               <span>Anniversary</span>
             </div>
             <div class="story-card__body">
@@ -637,7 +637,7 @@
 
           <article class="story-card" data-reveal>
             <div class="story-card__image">
-              <img src="assets/story-palace.jpg" alt="Two gold wedding rings" width="1400" height="933" loading="lazy">
+              <img src="{{ asset('web/assets/story-palace.jpg') }}" alt="Two gold wedding rings" width="1400" height="933" loading="lazy">
               <span>Destination wedding</span>
             </div>
             <div class="story-card__body">
