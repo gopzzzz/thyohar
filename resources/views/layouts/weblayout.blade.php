@@ -4,10 +4,11 @@
 @include('layouts.webpartials.head')
 
 <body>
+     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <div id="header-wrap">
+  
         @include('layouts.webpartials.header')
-    </div>
+    
 
     @yield('content')
 
@@ -15,5 +16,4 @@
     @include('layouts.webpartials.footerscript')
 
 </body>
-
 </html>
