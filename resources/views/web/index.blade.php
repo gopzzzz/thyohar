@@ -64,11 +64,10 @@
             <span>Service</span>
             <select id="serviceSelect" name="service">
               <option value="all">All services</option>
-              <option value="photography">Photography &amp; Videography</option>
-              <option value="decoration">Decoration &amp; Stage Setup</option>
-              <option value="catering">Catering Services</option>
-              <option value="beauty">Makeup &amp; Beauty</option>
-              <option value="fashion">Bridal &amp; Groom Wear</option>
+              @foreach($category as $cat)
+              <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+              @endforeach
+             
             </select>
           </label>
 
