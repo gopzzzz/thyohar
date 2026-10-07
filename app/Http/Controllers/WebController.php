@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class WebController extends Controller
 {
     public function index(){
-        return view('web.index');
+        $category=DB::table('categories')->get();
+        return view('web.index',compact('category'));
     }
     public function planners(){
         return view('web.planners');
