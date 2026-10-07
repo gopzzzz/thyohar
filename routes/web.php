@@ -201,7 +201,7 @@ Route::delete('/vendor-services/{id}', [VendorServicesController::class, 'destro
 
 
 
-
+Route::get('/planners', [WebController::class, 'planners'])->name('planners');
 
 
 

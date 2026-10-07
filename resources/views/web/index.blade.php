@@ -17,10 +17,12 @@
         <p class="hero__intro">Discover trusted professionals for every detail of your celebration—from the first moodboard to the final dance.</p>
 
         <div class="hero__actions">
-          <a class="button button--primary" href="planners.html">
-            Explore services
-            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
-          </a>
+          <a class="button button--primary" href="{{ route('planners') }}">
+    Explore services
+    <svg aria-hidden="true" viewBox="0 0 20 20">
+        <path d="M4 10h11M11 5l5 5-5 5"/>
+    </svg>
+</a>
           <a class="text-link text-link--light" href="#stories">
             <span class="play-icon" aria-hidden="true">
               <svg viewBox="0 0 20 20"><path d="m8 6 6 4-6 4V6Z"/></svg>
@@ -50,7 +52,7 @@
 
     <section class="quick-find" id="quickFind" aria-label="Find event professionals">
       <div class="container">
-        <form class="finder" id="finderForm" action="{{url('planners')}}" method="get">
+        <form class="finder" id="finderForm">
           <div class="finder__heading">
             <span class="finder__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>
@@ -62,11 +64,10 @@
             <span>Service</span>
             <select id="serviceSelect" name="service">
               <option value="all">All services</option>
-              <option value="photography">Photography &amp; Videography</option>
-              <option value="decoration">Decoration &amp; Stage Setup</option>
-              <option value="catering">Catering Services</option>
-              <option value="beauty">Makeup &amp; Beauty</option>
-              <option value="fashion">Bridal &amp; Groom Wear</option>
+              @foreach($category as $cat)
+              <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+              @endforeach
+             
             </select>
           </label>
 
@@ -88,10 +89,12 @@
             <input id="eventDate" name="date" type="date">
           </label>
 
-          <button class="button button--primary finder__submit" type="submit">
-            Find providers
-            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
-          </button>
+         <a class="button button--primary finder__submit" href="{{ route('planners') }}">
+    Find providers
+    <svg aria-hidden="true" viewBox="0 0 20 20">
+        <path d="M4 10h11M11 5l5 5-5 5"/>
+    </svg>
+</a>
         </form>
       </div>
     </section>

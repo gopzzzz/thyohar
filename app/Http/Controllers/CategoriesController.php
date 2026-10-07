@@ -28,7 +28,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|string|regex:/^[A-Za-z\s]+$/|max:255',
+            'category_name' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:10240',
         ]);
 
