@@ -159,7 +159,7 @@
                                                     data-target="#editBankModal{{ $bank->id }}">
 
                                                 <i class="fas fa-edit"></i>
-                                                Edit
+                                                
 
                                             </button>
 
