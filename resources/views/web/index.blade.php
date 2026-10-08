@@ -108,63 +108,49 @@
           </div>
           <p>Browse handpicked professionals across every part of your event, all in one joyful place.</p>
         </div>
+        
+<div class="services-grid">
 
-        <div class="services-grid">
-          <button class="service-card service-card--featured" type="button" data-service="photography" data-reveal>
-            <img src="{{ asset('web/assets/service-photography.jpg') }}" alt="Professional camera and lenses" width="1000" height="1250" loading="lazy">
-            <span class="service-card__shade" aria-hidden="true"></span>
-            <span class="service-card__count">86 professionals</span>
-            <span class="service-card__body">
-              <span class="service-card__number">01</span>
-              <span class="service-card__title">Photography &amp;<br>Videography</span>
-              <span class="service-card__action">Explore <span aria-hidden="true">↗</span></span>
-            </span>
-          </button>
+    @foreach($category as $key => $cate_gory)
 
-          <button class="service-card" type="button" data-service="decoration" data-reveal>
-            <img src="{{ asset('web/assets/service-decoration.jpg') }}" alt="Elegant floral event table setup" width="1000" height="667" loading="lazy">
-            <span class="service-card__shade" aria-hidden="true"></span>
-            <span class="service-card__count">72 professionals</span>
-            <span class="service-card__body">
-              <span class="service-card__number">02</span>
-              <span class="service-card__title">Decoration &amp;<br>Stage Setup</span>
-              <span class="service-card__action">Explore <span aria-hidden="true">↗</span></span>
-            </span>
-          </button>
+        <button
+            class="service-card {{ $key === 0 ? 'service-card--featured' : '' }}"
+            type="button"
+            data-service="{{ $cate_gory->id }}"
+            data-reveal
+        >
 
-          <button class="service-card" type="button" data-service="catering" data-reveal>
-            <img src="{{ asset('web/assets/service-catering.jpg') }}" alt="Beautifully presented catering buffet" width="1000" height="667" loading="lazy">
-            <span class="service-card__shade" aria-hidden="true"></span>
-            <span class="service-card__count">64 professionals</span>
-            <span class="service-card__body">
-              <span class="service-card__number">03</span>
-              <span class="service-card__title">Catering<br>Services</span>
-              <span class="service-card__action">Explore <span aria-hidden="true">↗</span></span>
-            </span>
-          </button>
+            <img
+                src="{{ asset('uploads/categories/' . $cate_gory->image) }}"
+                alt="{{ $cate_gory->category_name }}"
+                width="1000"
+                height="667"
+                loading="lazy"
+            >
 
-          <button class="service-card" type="button" data-service="beauty" data-reveal>
-            <img src="{{ asset('web/assets/service-makeup.jpg') }}" alt="Professional makeup collection" width="1000" height="667" loading="lazy">
             <span class="service-card__shade" aria-hidden="true"></span>
-            <span class="service-card__count">58 professionals</span>
-            <span class="service-card__body">
-              <span class="service-card__number">04</span>
-              <span class="service-card__title">Makeup &amp;<br>Beauty</span>
-              <span class="service-card__action">Explore <span aria-hidden="true">↗</span></span>
-            </span>
-          </button>
 
-          <button class="service-card" type="button" data-service="fashion" data-reveal>
-            <img src="{{ asset('web/assets/service-fashion.jpg') }}" alt="Detailed bridal occasion wear" width="1000" height="1500" loading="lazy">
-            <span class="service-card__shade" aria-hidden="true"></span>
-            <span class="service-card__count">49 professionals</span>
             <span class="service-card__body">
-              <span class="service-card__number">05</span>
-              <span class="service-card__title">Bridal Wear &amp;<br>Groom Wear</span>
-              <span class="service-card__action">Explore <span aria-hidden="true">↗</span></span>
+
+                <span class="service-card__number">
+                    {{ str_pad($key + 1, 2, '0', STR_PAD_LEFT) }}
+                </span>
+
+                <span class="service-card__title">
+                    {{ $cate_gory->category_name }}
+                </span>
+
+                <span class="service-card__action">
+                    Explore <span aria-hidden="true">↗</span>
+                </span>
+
             </span>
-          </button>
-        </div>
+
+        </button>
+
+    @endforeach
+
+</div>
       </div>
     </section>
 
@@ -229,11 +215,10 @@
 
         <div class="filter-bar" role="toolbar" aria-label="Filter event professionals" data-reveal>
           <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">All</button>
-          <button class="filter-button" type="button" data-filter="photography" aria-pressed="false">Photography</button>
-          <button class="filter-button" type="button" data-filter="decoration" aria-pressed="false">Decoration</button>
-          <button class="filter-button" type="button" data-filter="catering" aria-pressed="false">Catering</button>
-          <button class="filter-button" type="button" data-filter="beauty" aria-pressed="false">Beauty</button>
-          <button class="filter-button" type="button" data-filter="fashion" aria-pressed="false">Occasion Wear</button>
+          @foreach($category as $subcat)
+          <button class="filter-button" type="button" data-filter="photography" aria-pressed="false">{{$subcat->category_name}}</button>
+          @endforeach
+         
         </div>
 
         <div class="provider-grid" id="providerGrid">
@@ -693,25 +678,26 @@
       <div class="container contact__shell">
         <div class="contact__intro" data-reveal>
           <p class="eyebrow eyebrow--light"><span></span> Let’s make it memorable</p>
-          <h2 id="contactTitle">Tell us what you’re <em>celebrating.</em></h2>
-          <p>Share a few details and our celebration concierge will help you find the right professionals.</p>
+          <h2 id="contactTitle">Let’s Grow <em>Together.</em></h2>
+          <p>Join Thyohar and grow your event business with more opportunities, visibility, and customers.</p>
           <div class="contact__details">
             <a href="tel:+919876543210">
               <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4H5a1 1 0 0 0-1 1c0 8.3 6.7 15 15 15a1 1 0 0 0 1-1v-3l-4-1-1 2c-3.5-1.5-6-4-7.5-7.5l2-1L8 4Z"/></svg></span>
-              <div><small>Call&nbsp;us</small><strong>+91&nbsp;98765&nbsp;43210</strong></div>
+              <div><small>Call&nbsp;us</small><strong>+91 9061923403</strong></div>
             </a>
             <a href="mailto:hello@thyohar.in">
               <span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
-              <div><small>Write to us</small><strong>hello@thyohar.in</strong></div>
+              <div><small>Write to us</small><strong>info@thyohar.com</strong></div>
             </a>
           </div>
           <p class="contact__hours"><span></span> Celebration concierge available Mon–Sat, 9am–7pm</p>
         </div>
 
-        <form class="contact-form" id="contactForm" data-reveal>
+        <form action="{{ route('partnerwithus') }}"  id="contactForm" method="POST" class="contact-form"  data-reveal>
+           @csrf
           <div class="contact-form__heading">
-            <h3>Start planning with us</h3>
-            <p>We usually respond within one business day.</p>
+            <h3>Partner with us</h3>
+            <p>Tell us a little about your business and our team will get in touch with you.</p>
           </div>
           <div class="form-row">
             <label>
@@ -732,24 +718,21 @@
               <span>What are you planning?</span>
               <select name="event" id="contactEvent" required>
                 <option value="" selected disabled>Select an event</option>
-                <option>Wedding</option>
-                <option>Engagement</option>
-                <option>Birthday</option>
-                <option>Anniversary</option>
-                <option>Corporate event</option>
-                <option>Other celebration</option>
+                @foreach($category as $cat)
+                <option value="{{$cat->id}}">{{$cat->category_name}}</option>
+                @endforeach
               </select>
             </label>
           </div>
           <label>
-            <span>Tell us about your celebration</span>
+            <span>Tell us about your Bussiness </span>
             <textarea name="message" rows="4" placeholder="City, date, guest count, style, or anything already on your mind..."></textarea>
           </label>
           <button class="button button--primary button--full" type="submit">
             Send my enquiry
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
           </button>
-          <p class="form-privacy">By submitting, you agree to be contacted about your enquiry. No spam, only celebration help.</p>
+          <p class="form-privacy">Tell us about your services, location, experience, and how you would like to partner with Thyohar...</p>
         </form>
       </div>
     </section>
