@@ -3,8 +3,7 @@
 
 @include('layouts.partials.head')
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed
-{{ request()->segment(1) === 'vendors' ? 'vendor-normal-page' : 'thyohar-enhanced-page' }}">
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed thyohar-enhanced-page">
 
 <div class="wrapper">
 
@@ -34,7 +33,7 @@
 
 </div>
 
-<!-- Scripts -->
+<!-- REQUIRED SCRIPTS -->
 @include('layouts.partials.footer-scripts')
 
 </body>

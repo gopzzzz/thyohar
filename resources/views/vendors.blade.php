@@ -719,6 +719,12 @@
             font-size: 25px;
         }
 
+    <!-- =====================================================
+         CONTENT HEADER
+         ===================================================== -->
+
+    <section class="content-header">
+
         .vendor-empty h4 {
             margin: 0 0 6px;
             color: var(--th-text);
@@ -726,27 +732,21 @@
             font-weight: 700;
         }
 
-        .vendor-empty p {
-            margin: 0;
-            color: var(--th-muted);
-            font-size: 13px;
-        }
+            <div class="row mb-2">
 
+                <div class="col-sm-6">
 
-        /* =========================================================
-           RESPONSIVE
-           ========================================================= */
+                    <h1>Vendors</h1>
 
-        @media (max-width: 991px) {
+                </div>
 
-            .vendor-table {
-                min-width: 1100px;
-            }
+                <div class="col-sm-6">
 
-            .vendor-table-wrap {
-                overflow-x: auto;
-            }
-        }
+                    <ol class="breadcrumb float-sm-right">
+
+                        <li class="breadcrumb-item">
+                            <a href="#">Home</a>
+                        </li>
 
         @media (max-width: 767px) {
 
@@ -801,26 +801,6 @@
                             Manage vendors, profiles and their service categories.
                         </p>
 
-                    </div>
-
-                    <nav aria-label="breadcrumb">
-
-                        <ol class="breadcrumb vendor-breadcrumb">
-
-                            <li class="breadcrumb-item">
-                                <a href="{{ url('/') }}">
-                                    Home
-                                </a>
-                            </li>
-
-                            <li class="breadcrumb-item active">
-                                Vendors
-                            </li>
-
-                        </ol>
-
-                    </nav>
-
                 </div>
 
             </div>
@@ -832,428 +812,1050 @@
              MAIN CONTENT
              ===================================================== -->
 
-        <section>
+    <section class="content">
 
             <div class="container-fluid">
 
+            <div class="row">
 
-                <!-- =================================================
-                     SUCCESS MESSAGE
-                     ================================================= -->
+                <div class="col-md-12">
 
-                @if(session('success'))
-
-                    <div class="alert alert-success th-alert alert-dismissible fade show">
-
-                        <i class="fas fa-check-circle mr-2"></i>
-
-                        {{ session('success') }}
-
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="alert"
-                        >
-                            <span>&times;</span>
-                        </button>
-
-                    </div>
-
-                @endif
+                    <div class="card">
 
 
-                <!-- =================================================
-                     ERROR MESSAGE
-                     ================================================= -->
+                        <!-- =================================================
+                             CARD HEADER
+                             ================================================= -->
 
-                @if(session('error'))
+                        <div class="card-header d-flex justify-content-between align-items-center">
 
-                    <div class="alert alert-danger th-alert alert-dismissible fade show">
-
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-
-                        {{ session('error') }}
-
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="alert"
-                        >
-                            <span>&times;</span>
-                        </button>
-
-                    </div>
-
-                @endif
+                            <h3 class="card-title">
+                                Vendor List
+                            </h3>
 
 
-                <!-- =================================================
-                     VALIDATION ERRORS
-                     ================================================= -->
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm"
+                                data-toggle="modal"
+                                data-target="#newVendorModal"
+                            >
 
-                @if($errors->any())
+                                <i class="fas fa-plus"></i>
 
-                    <div class="alert alert-danger th-alert">
+                                New Vendor
 
-                        <strong>
-                            Please check the following:
-                        </strong>
+                            </button>
 
-                        <ul class="mb-0 mt-2">
-
-                            @foreach($errors->all() as $error)
-
-                                <li>
-                                    {{ $error }}
-                                </li>
-
-                            @endforeach
-
-                        </ul>
-
-                    </div>
-
-                @endif
+                        </div>
 
 
-                <!-- =================================================
-                     VENDOR CARD
-                     ================================================= -->
+                        <!-- =================================================
+                             SUCCESS MESSAGE
+                             ================================================= -->
 
-                <div class="vendor-card">
+                        @if(session('success'))
 
+                            <div class="alert alert-success alert-dismissible fade show m-3">
 
-                    <!-- CARD HEADER -->
+                                {{ session('success') }}
 
-                    <div class="vendor-card-header">
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="alert"
+                                >
 
-                        <div class="vendor-card-title-wrap">
+                                    <span>&times;</span>
 
-                            <div class="vendor-card-icon">
-                                <i class="fas fa-store"></i>
+                                </button>
+
                             </div>
 
-                            <div>
+                        @endif
 
-                                <h2 class="vendor-card-title">
 
-                                    Vendor List
+                        <!-- =================================================
+                             ERROR MESSAGE
+                             ================================================= -->
 
-                                    <span class="vendor-card-count">
-                                        {{ $vendors->count() }}
-                                    </span>
+                        @if(session('error'))
 
-                                </h2>
+                            <div class="alert alert-danger alert-dismissible fade show m-3">
+
+                                {{ session('error') }}
+
+                                <button
+                                    type="button"
+                                    class="close"
+                                    data-dismiss="alert"
+                                >
+
+                                    <span>&times;</span>
+
+                                </button>
+
+                            </div>
+
+                        @endif
+
+
+                        <!-- =================================================
+                             VALIDATION ERRORS
+                             ================================================= -->
+
+                        @if($errors->any())
+
+                            <div class="alert alert-danger m-3">
+
+                                <ul class="mb-0">
+
+                                    @foreach($errors->all() as $error)
+
+                                        <li>
+                                            {{ $error }}
+                                        </li>
+
+                                    @endforeach
+
+                                </ul>
+
+                            </div>
+
+                        @endif
+
+
+                        <!-- =================================================
+                             VENDOR TABLE
+                             ================================================= -->
+
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered table-striped table-hover">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th style="width:60px;">
+                                                #
+                                            </th>
+
+                                            <th>
+                                                Vendor
+                                            </th>
+
+                                            <th>
+                                                Contact
+                                            </th>
+
+                                            <th>
+                                                Email
+                                            </th>
+
+                                            <th>
+                                                Address
+                                            </th>
+
+                                            <th>
+                                                Categories
+                                            </th>
+
+                                            <th>
+                                                Bio
+                                            </th>
+
+                                            <th style="width:120px;">
+                                                Action
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+                            <thead>
+
+                                    <tbody>
+
+                                        @forelse($vendors->sortBy('id')->values() as $vendor)
+
+                                            @php
+
+                                                $vendorCategoryIds = DB::table('vendor_services')
+                                                    ->where('vendor_id', $vendor->id)
+                                                    ->pluck('service_id')
+                                                    ->toArray();
+
+                                                $vendorCategories = $categories
+                                                    ->whereIn('id', $vendorCategoryIds);
+
+                                            @endphp
+
+
+                                            <tr>
+
+
+                                                <!-- NUMBER -->
+
+                                                <td>
+
+                                                    {{ $loop->iteration }}
+
+                                                </td>
+
+
+                                                <!-- VENDOR -->
+
+                                                <td>
+
+                                                    <div class="d-flex align-items-center">
+
+                                                        @if($vendor->logo)
+
+                                                            <img
+                                                                src="{{ asset($vendor->logo) }}"
+                                                                alt="{{ $vendor->vendor_name }}"
+                                                                style="
+                                                                    width:40px;
+                                                                    height:40px;
+                                                                    object-fit:cover;
+                                                                    border-radius:6px;
+                                                                    margin-right:10px;
+                                                                "
+                                                            >
+
+                                                        @else
+
+                                                            <i
+                                                                class="fas fa-store mr-2"
+                                                                style="font-size:20px;"
+                                                            ></i>
+
+                                                        @endif
+
+
+                                                        <div>
+
+                                                            <strong>
+                                                                {{ $vendor->vendor_name }}
+                                                            </strong>
+
+                                                            <br>
+
+                                                            <small class="text-muted">
+                                                                Vendor #{{ $vendor->id }}
+                                                            </small>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </td>
+
+
+                                                <!-- CONTACT -->
+
+                                                <td>
+
+                                                    <i class="fas fa-phone-alt mr-1"></i>
+
+                                                    {{ $vendor->phone_number }}
+
+                                                </td>
+
+
+                                                <!-- EMAIL -->
+
+                                                <td>
+
+                                                    <i class="far fa-envelope mr-1"></i>
+
+                                                    {{ $vendor->mail_id }}
+
+                                                </td>
+
+
+                                                <!-- ADDRESS -->
+
+                                                <td>
+
+                                                    {{ $vendor->address }}
+
+                                                </td>
+
+
+                                                <!-- CATEGORIES -->
+
+                                                <td>
+
+                                                    @forelse($vendorCategories as $category)
+
+                                                        <span class="badge badge-primary mr-1">
+
+                                                            {{ $category->category_name }}
+
+                                                        </span>
+
+                                                    @empty
+
+                                                        <span class="text-muted">
+
+                                                            No categories
+
+                                                        </span>
+
+                                                    @endforelse
+
+                                                </td>
+
+
+                                                <!-- BIO -->
+
+                                                <td>
+
+                                                    {{ \Illuminate\Support\Str::limit($vendor->bio, 70) }}
+
+                                                </td>
+
+
+                                                <!-- ACTION -->
+
+                                                <td class="text-center">
+
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-primary btn-sm"
+                                                        data-toggle="modal"
+                                                        data-target="#editVendorModal{{ $vendor->id }}"
+                                                    >
+
+                                                        <i class="fas fa-edit"></i>
+
+                                                    </button>
+
+                                                </td>
+
+                                            </tr>
+
+
+                                            <!-- =================================================
+                                                 EDIT VENDOR MODAL
+                                                 ================================================= -->
+
+                                            <div
+                                                class="modal fade"
+                                                id="editVendorModal{{ $vendor->id }}"
+                                                tabindex="-1"
+                                                role="dialog"
+                                                aria-labelledby="editVendorModalLabel{{ $vendor->id }}"
+                                                aria-hidden="true"
+                                            >
+
+                                                <div
+                                                    class="modal-dialog modal-lg"
+                                                    role="document"
+                                                >
+
+                                                    <form
+                                                        action="{{ route('vendors.update', $vendor->id) }}"
+                                                        method="POST"
+                                                        enctype="multipart/form-data"
+                                                    >
+
+                                                        @csrf
+
+                                                        @method('PUT')
+
+
+                                                        <div class="modal-content">
+
+
+                                                            <!-- MODAL HEADER -->
+
+                                                            <div class="modal-header">
+
+                                                                <h5
+                                                                    class="modal-title"
+                                                                    id="editVendorModalLabel{{ $vendor->id }}"
+                                                                >
+
+                                                                    <i class="fas fa-edit"></i>
+
+                                                                    Edit Vendor
+
+                                                                </h5>
+
+
+                                                                <button
+                                                                    type="button"
+                                                                    class="close"
+                                                                    data-dismiss="modal"
+                                                                >
+
+                                                                    <span>&times;</span>
+
+                                                                </button>
+
+                                                            </div>
+
+
+                                                            <!-- MODAL BODY -->
+
+                                                            <div class="modal-body">
+
+
+                                                                <!-- VENDOR NAME -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Vendor Name
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+                                                                    <input
+                                                                        type="text"
+                                                                        name="vendor_name"
+                                                                        class="form-control"
+                                                                        value="{{ $vendor->vendor_name }}"
+                                                                        placeholder="Enter vendor name"
+                                                                        required
+                                                                    >
+
+                                                                </div>
+
+
+                                                                <!-- PHONE -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Phone Number
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+                                                                    <input
+                                                                        type="text"
+                                                                        name="phone_number"
+                                                                        class="form-control"
+                                                                        value="{{ $vendor->phone_number }}"
+                                                                        maxlength="10"
+                                                                        minlength="10"
+                                                                        pattern="[0-9]{10}"
+                                                                        inputmode="numeric"
+                                                                        required
+                                                                    >
+
+                                                                </div>
+
+
+                                                                <!-- EMAIL -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Mail ID
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+                                                                    <input
+                                                                        type="email"
+                                                                        name="mail_id"
+                                                                        class="form-control"
+                                                                        value="{{ $vendor->mail_id }}"
+                                                                        required
+                                                                    >
+
+                                                                </div>
+
+
+                                                                <!-- CATEGORIES -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Categories
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+
+                                                                    <div
+                                                                        style="
+                                                                            border:1px solid #ced4da;
+                                                                            border-radius:.25rem;
+                                                                            padding:10px;
+                                                                            max-height:200px;
+                                                                            overflow-y:auto;
+                                                                        "
+                                                                    >
+
+                                                                        @forelse($categories as $category)
+
+                                                                            <div class="custom-control custom-checkbox">
+
+                                                                                <input
+                                                                                    type="checkbox"
+                                                                                    class="custom-control-input"
+                                                                                    id="edit_category_{{ $vendor->id }}_{{ $category->id }}"
+                                                                                    name="categories[]"
+                                                                                    value="{{ $category->id }}"
+                                                                                    {{ in_array($category->id, $vendorCategoryIds) ? 'checked' : '' }}
+                                                                                >
+
+                                                                                <label
+                                                                                    class="custom-control-label"
+                                                                                    for="edit_category_{{ $vendor->id }}_{{ $category->id }}"
+                                                                                >
+
+                                                                                    {{ $category->category_name }}
+
+                                                                                </label>
+
+                                                                            </div>
+
+                                                                        @empty
+
+                                                                            <span class="text-muted">
+
+                                                                                No categories available.
+
+                                                                            </span>
+
+                                                                        @endforelse
+
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                <!-- ADDRESS -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Address
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+                                                                    <textarea
+                                                                        name="address"
+                                                                        class="form-control"
+                                                                        rows="3"
+                                                                        required
+                                                                    >{{ $vendor->address }}</textarea>
+
+                                                                </div>
+
+
+                                                                <!-- BIO -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+
+                                                                        Bio
+
+                                                                        <span class="text-danger">
+                                                                            *
+                                                                        </span>
+
+                                                                    </label>
+
+                                                                    <textarea
+                                                                        name="bio"
+                                                                        class="form-control"
+                                                                        rows="4"
+                                                                        required
+                                                                    >{{ $vendor->bio }}</textarea>
+
+                                                                </div>
+
+
+                                                                <!-- CURRENT LOGO -->
+
+                                                                @if($vendor->logo)
+
+                                                                    <div class="form-group">
+
+                                                                        <label>
+                                                                            Current Logo
+                                                                        </label>
+
+                                                                        <br>
+
+                                                                        <img
+                                                                            src="{{ asset($vendor->logo) }}"
+                                                                            alt="{{ $vendor->vendor_name }}"
+                                                                            style="
+                                                                                width:80px;
+                                                                                height:80px;
+                                                                                object-fit:cover;
+                                                                                border-radius:6px;
+                                                                            "
+                                                                        >
+
+                                                                    </div>
+
+                                                                @endif
+
+
+                                                                <!-- NEW LOGO -->
+
+                                                                <div class="form-group">
+
+                                                                    <label>
+                                                                        Change Logo
+                                                                    </label>
+
+                                                                    <input
+                                                                        type="file"
+                                                                        name="logo"
+                                                                        class="form-control"
+                                                                        accept=".jpg,.jpeg,.png,.webp"
+                                                                    >
+
+                                                                    <small class="text-muted">
+
+                                                                        Leave empty to keep the current logo.
+
+                                                                    </small>
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <!-- MODAL FOOTER -->
+
+                                                            <div class="modal-footer">
+
+                                                                <button
+                                                                    type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-dismiss="modal"
+                                                                >
+
+                                                                    Close
+
+                                                                </button>
+
+
+                                                                <button
+                                                                    type="submit"
+                                                                    class="btn btn-primary"
+                                                                >
+
+                                                                    <i class="fas fa-save"></i>
+
+                                                                    Update Vendor
+
+                                                                </button>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        @empty
+
+                                            <tr>
+
+                                                <td
+                                                    colspan="8"
+                                                    class="text-center text-muted"
+                                                >
+
+                                                    No vendors found.
+
+                                                </td>
+
+                                            </tr>
+
+                                        @endforelse
+
+                                    </tbody>
+
+                                </table>
 
                             </div>
 
                         </div>
 
 
-                        <!-- NEW VENDOR BUTTON -->
+                        <!-- =================================================
+                             CARD FOOTER
+                             ================================================= -->
 
-                        <button
-                            type="button"
-                            class="btn btn-th-primary"
-                            data-toggle="modal"
-                            data-target="#newVendorModal"
+                        <div class="card-footer clearfix">
+
+                            <span class="text-muted">
+
+                                Total Vendors:
+
+                                {{ $vendors->count() }}
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<!-- =========================================================
+     ADD NEW VENDOR MODAL
+     ========================================================= -->
+
+<div
+    class="modal fade"
+    id="newVendorModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="newVendorModalLabel"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-dialog modal-lg"
+        role="document"
+    >
+
+        <form
+            action="{{ route('vendors.store') }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            @csrf
+
+
+            <div class="modal-content">
+
+
+                <!-- MODAL HEADER -->
+
+                <div class="modal-header">
+
+                    <h5
+                        class="modal-title"
+                        id="newVendorModalLabel"
+                    >
+
+                        <i class="fas fa-store"></i>
+
+                        Add New Vendor
+
+                    </h5>
+
+
+                    <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                    >
+
+                        <span>&times;</span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- MODAL BODY -->
+
+                <div class="modal-body">
+
+
+                    <!-- VENDOR NAME -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Vendor Name
+
+                            <span class="text-danger">
+                                *
+                            </span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="vendor_name"
+                            class="form-control"
+                            value="{{ old('vendor_name') }}"
+                            placeholder="Enter vendor name"
+                            required
                         >
 
-                            <i class="fas fa-plus"></i>
+                    </div>
 
-                            New Vendor
 
-                        </button>
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Phone Number
+
+                            <span class="text-danger">
+                                *
+                            </span>
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="phone_number"
+                            class="form-control"
+                            value="{{ old('phone_number') }}"
+                            placeholder="10 digit phone number"
+                            maxlength="10"
+                            minlength="10"
+                            pattern="[0-9]{10}"
+                            inputmode="numeric"
+                            required
+                        >
 
                     </div>
 
 
-                    <!-- =================================================
-                         TABLE
-                         ================================================= -->
+                    <!-- EMAIL -->
 
-                    <div class="vendor-table-wrap">
+                    <div class="form-group">
 
-                        <table class="table vendor-table">
+                        <label>
 
-                            <thead>
+                            Mail ID
 
-                                <tr>
+                            <span class="text-danger">
+                                *
+                            </span>
 
-                                    <th style="width:55px;">
-                                        #
-                                    </th>
+                        </label>
 
-                                    <th>
-                                        Vendor
-                                    </th>
-
-                                    <th>
-                                        Contact
-                                    </th>
-
-                                    <th>
-                                        Email
-                                    </th>
-
-                                    <th>
-                                        Address
-                                    </th>
-
-                                    <th>
-                                        Categories
-                                    </th>
-
-                                    <th>
-                                        Bio
-                                    </th>
-
-                                    <th style="width:100px;">
-                                        Action
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                @forelse($vendors as $vendor)
-
-                                    @php
-
-                                        /*
-                                         * service_id contains CATEGORY ID.
-                                         *
-                                         * Get all categories assigned
-                                         * to this vendor.
-                                         */
-
-                                        $vendorCategoryIds = DB::table('vendor_services')
-                                            ->where('vendor_id', $vendor->id)
-                                            ->pluck('service_id')
-                                            ->toArray();
-
-                                        $vendorCategories = $categories
-                                            ->whereIn('id', $vendorCategoryIds);
-
-                                    @endphp
-
-
-                                    <tr>
-
-
-                                        <!-- NUMBER -->
-
-                                        <td class="vendor-number">
-                                            {{ $loop->iteration }}
-                                        </td>
-
-
-                                        <!-- VENDOR -->
-
-                                        <td>
-
-                                            <div class="vendor-profile">
-
-                                                @if($vendor->logo)
-
-                                                    <img
-                                                        src="{{ asset($vendor->logo) }}"
-                                                        class="vendor-logo"
-                                                        alt="{{ $vendor->vendor_name }}"
-                                                    >
-
-                                                @else
-
-                                                    <div class="vendor-logo-placeholder">
-
-                                                        <i class="fas fa-store"></i>
-
-                                                    </div>
-
-                                                @endif
-
-
-                                                <div>
-
-                                                    <div class="vendor-name">
-                                                        {{ $vendor->vendor_name }}
-                                                    </div>
-
-                                                    <div class="vendor-id">
-                                                        Vendor #{{ $vendor->id }}
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- PHONE -->
-
-                                        <td>
-
-                                            <div class="vendor-contact">
-
-                                                <i class="fas fa-phone-alt"></i>
-
-                                                {{ $vendor->phone_number }}
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- EMAIL -->
-
-                                        <td>
-
-                                            <div class="vendor-contact">
-
-                                                <i class="far fa-envelope"></i>
-
-                                                {{ $vendor->mail_id }}
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- ADDRESS -->
-
-                                        <td>
-
-                                            <div class="vendor-address">
-
-                                                {{ $vendor->address }}
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- CATEGORIES -->
-
-                                        <td>
-
-                                            <div class="category-list">
-
-                                                @forelse($vendorCategories as $category)
-
-                                                    <span class="category-badge">
-
-                                                        {{ $category->category_name }}
-
-                                                    </span>
-
-                                                @empty
-
-                                                    <span class="category-empty">
-                                                        No categories
-                                                    </span>
-
-                                                @endforelse
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- BIO -->
-
-                                        <td>
-
-                                            <div class="vendor-bio">
-
-                                                {{ \Illuminate\Support\Str::limit($vendor->bio, 70) }}
-
-                                            </div>
-
-                                        </td>
-
-
-                                        <!-- ACTION -->
-
-                                        <td>
-
-                                            <button
-                                                type="button"
-                                                class="btn-edit-vendor"
-                                                data-toggle="modal"
-                                                data-target="#editVendorModal{{ $vendor->id }}"
-                                            >
-
-                                                <i class="fas fa-pen"></i>
-
-                                                Edit
-
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
-
-
-                                @empty
-
-                                    <tr>
-
-                                        <td
-                                            colspan="8"
-                                            class="vendor-empty"
-                                        >
-
-                                            <div class="vendor-empty-icon">
-
-                                                <i class="fas fa-store-slash"></i>
-
-                                            </div>
-
-                                            <h4>
-                                                No vendors found
-                                            </h4>
-
-                                            <p>
-                                                Start by adding your first vendor.
-                                            </p>
-
-                                        </td>
-
-                                    </tr>
-
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
+                        <input
+                            type="email"
+                            name="mail_id"
+                            class="form-control"
+                            value="{{ old('mail_id') }}"
+                            placeholder="vendor@example.com"
+                            required
+                        >
 
                     </div>
 
 
-                    <!-- =================================================
-                         CARD FOOTER
-                         ================================================= -->
+                    <!-- CATEGORIES -->
 
-                    <div class="vendor-card-footer">
+                    <div class="form-group">
 
-                        <span>
+                        <label>
 
-                            <i class="fas fa-users mr-1"></i>
+                            Categories
 
-                            {{ $vendors->count() }} vendor(s)
+                            <span class="text-danger">
+                                *
+                            </span>
 
-                        </span>
+                        </label>
 
-                        <span>
-                            Vendor Management
-                        </span>
+
+                        <div
+                            style="
+                                border:1px solid #ced4da;
+                                border-radius:.25rem;
+                                padding:10px;
+                                max-height:200px;
+                                overflow-y:auto;
+                            "
+                        >
+
+                            @forelse($categories as $category)
+
+                                <div class="custom-control custom-checkbox">
+
+                                    <input
+                                        type="checkbox"
+                                        class="custom-control-input"
+                                        id="new_category_{{ $category->id }}"
+                                        name="categories[]"
+                                        value="{{ $category->id }}"
+                                    >
+
+                                    <label
+                                        class="custom-control-label"
+                                        for="new_category_{{ $category->id }}"
+                                    >
+
+                                        {{ $category->category_name }}
+
+                                    </label>
+
+                                </div>
+
+                            @empty
+
+                                <span class="text-muted">
+
+                                    No categories available.
+
+                                </span>
+
+                            @endforelse
+
+                        </div>
 
                     </div>
 
+
+                    <!-- ADDRESS -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Address
+
+                            <span class="text-danger">
+                                *
+                            </span>
+
+                        </label>
+
+                        <textarea
+                            name="address"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Enter complete vendor address"
+                            required
+                        >{{ old('address') }}</textarea>
+
+                    </div>
+
+
+                    <!-- BIO -->
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Bio
+
+                            <span class="text-danger">
+                                *
+                            </span>
+
+                        </label>
+
+                        <textarea
+                            name="bio"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Write a short description about this vendor"
+                            required
+                        >{{ old('bio') }}</textarea>
+
+                    </div>
+
+
+                    <!-- LOGO -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Upload Logo
+                        </label>
+
+                        <input
+                            type="file"
+                            name="logo"
+                            class="form-control"
+                            accept=".jpg,.jpeg,.png,.webp"
+                        >
+
+                        <small class="text-muted">
+
+                            JPG, JPEG, PNG or WEBP. Maximum 2 MB.
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MODAL FOOTER -->
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                    >
+
+                        Close
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="fas fa-save"></i>
+
+                        Save Vendor
+
+                    </button>
 
                 </div>
 
@@ -1263,1031 +1865,6 @@
 
     </div>
 
-
-    <!-- =========================================================
-         NEW VENDOR MODAL
-         ========================================================= -->
-
-    <div
-        class="modal fade vendor-modal"
-        id="newVendorModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="newVendorModalLabel"
-        aria-hidden="true"
-    >
-
-        <div
-            class="modal-dialog modal-lg"
-            role="document"
-        >
-
-            <form
-                action="{{ route('vendors.store') }}"
-                method="POST"
-                enctype="multipart/form-data"
-            >
-
-                @csrf
-
-                <div class="modal-content">
-
-
-                    <!-- HEADER -->
-
-                    <div class="modal-header">
-
-                        <h5
-                            class="vendor-modal-title"
-                            id="newVendorModalLabel"
-                        >
-
-                            <span class="modal-title-icon">
-
-                                <i class="fas fa-store"></i>
-
-                            </span>
-
-                            Add New Vendor
-
-                        </h5>
-
-
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="modal"
-                        >
-
-                            <span>&times;</span>
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- BODY -->
-
-                    <div class="modal-body">
-
-
-                        <!-- BASIC INFORMATION -->
-
-                        <div class="form-section">
-
-                            <div class="form-section-title">
-
-                                <i class="fas fa-user"></i>
-
-                                Basic Information
-
-                            </div>
-
-
-                            <div class="row">
-
-
-                                <!-- VENDOR NAME -->
-
-                                <div class="col-md-6">
-
-                                    <div class="vendor-form-group">
-
-                                        <label>
-
-                                            Vendor Name
-
-                                            <span class="required">*</span>
-
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                            name="vendor_name"
-                                            class="vendor-form-control"
-                                            value="{{ old('vendor_name') }}"
-                                            placeholder="Enter vendor name"
-                                            required
-                                        >
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- PHONE -->
-
-                                <div class="col-md-6">
-
-                                    <div class="vendor-form-group">
-
-                                        <label>
-
-                                            Phone Number
-
-                                            <span class="required">*</span>
-
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                            name="phone_number"
-                                            class="vendor-form-control"
-                                            value="{{ old('phone_number') }}"
-                                            placeholder="10 digit phone number"
-                                            maxlength="10"
-                                            minlength="10"
-                                            pattern="[0-9]{10}"
-                                            inputmode="numeric"
-                                            required
-                                        >
-
-                                        <small class="form-help">
-                                            Enter exactly 10 digits.
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- EMAIL -->
-
-                                <div class="col-md-6">
-
-                                    <div class="vendor-form-group">
-
-                                        <label>
-
-                                            Mail ID
-
-                                            <span class="required">*</span>
-
-                                        </label>
-
-                                        <input
-                                            type="email"
-                                            name="mail_id"
-                                            class="vendor-form-control"
-                                            value="{{ old('mail_id') }}"
-                                            placeholder="vendor@example.com"
-                                            required
-                                        >
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- CATEGORIES -->
-
-                                <div class="col-md-6">
-
-                                    <div class="vendor-form-group">
-
-                                        <label>
-
-                                            Categories
-
-                                            <span class="required">*</span>
-
-                                        </label>
-
-
-                                        <div class="dropdown category-picker">
-
-                                            <button
-                                                type="button"
-                                                class="category-picker-button dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                data-display="static"
-                                            >
-
-                                                <span class="category-picker-content">
-
-                                                    <i class="fas fa-tags category-picker-icon"></i>
-
-                                                    <span class="selected-category-summary">
-                                                        Select categories
-                                                    </span>
-
-                                                </span>
-
-                                                <span class="selected-count">
-                                                    0
-                                                </span>
-
-                                            </button>
-
-
-                                            <div class="dropdown-menu category-dropdown-menu">
-
-                                                @forelse($categories as $category)
-
-                                                    <label class="category-option">
-
-                                                        <input
-                                                            type="checkbox"
-                                                            name="categories[]"
-                                                            value="{{ $category->id }}"
-                                                            {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}
-                                                        >
-
-                                                        <span>
-                                                            {{ $category->category_name }}
-                                                        </span>
-
-                                                    </label>
-
-                                                @empty
-
-                                                    <div class="p-3 text-muted">
-                                                        No categories available.
-                                                    </div>
-
-                                                @endforelse
-
-                                            </div>
-
-                                        </div>
-
-                                        <small class="form-help">
-                                            Select one or more categories.
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- LOCATION -->
-
-                        <div class="form-section">
-
-                            <div class="form-section-title">
-
-                                <i class="fas fa-map-marker-alt"></i>
-
-                                Location
-
-                            </div>
-
-                            <div class="vendor-form-group">
-
-                                <label>
-
-                                    Address
-
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <textarea
-                                    name="address"
-                                    class="vendor-form-control"
-                                    rows="3"
-                                    placeholder="Enter complete vendor address"
-                                    required
-                                >{{ old('address') }}</textarea>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- ABOUT -->
-
-                        <div class="form-section">
-
-                            <div class="form-section-title">
-
-                                <i class="fas fa-align-left"></i>
-
-                                About Vendor
-
-                            </div>
-
-                            <div class="vendor-form-group">
-
-                                <label>
-
-                                    Bio
-
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <textarea
-                                    name="bio"
-                                    class="vendor-form-control"
-                                    rows="4"
-                                    placeholder="Write a short description about this vendor"
-                                    required
-                                >{{ old('bio') }}</textarea>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- LOGO -->
-
-                        <div class="form-section">
-
-                            <div class="form-section-title">
-
-                                <i class="fas fa-image"></i>
-
-                                Vendor Logo
-
-                            </div>
-
-                            <div class="logo-upload-box">
-
-                                <div class="vendor-form-group mb-0">
-
-                                    <label>
-                                        Upload Logo
-                                    </label>
-
-                                    <input
-                                        type="file"
-                                        name="logo"
-                                        class="vendor-form-control logo-upload-input"
-                                        accept=".jpg,.jpeg,.png,.webp"
-                                    >
-
-                                    <small class="form-help">
-                                        JPG, JPEG, PNG or WEBP. Maximum 2 MB.
-                                    </small>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <!-- FOOTER -->
-
-                    <div class="modal-footer">
-
-                        <button
-                            type="button"
-                            class="btn-modal-cancel"
-                            data-dismiss="modal"
-                        >
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            class="btn-modal-save"
-                        >
-
-                            <i class="fas fa-save mr-1"></i>
-
-                            Save New Record
-
-                        </button>
-
-                    </div>
-
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================================================
-         EDIT VENDOR MODALS
-         ========================================================= -->
-
-    @foreach($vendors as $vendor)
-
-        @php
-
-            /*
-             * service_id stores CATEGORY ID.
-             */
-
-            $selectedCategoryIds = DB::table('vendor_services')
-                ->where('vendor_id', $vendor->id)
-                ->pluck('service_id')
-                ->toArray();
-
-        @endphp
-
-
-        <div
-            class="modal fade vendor-modal"
-            id="editVendorModal{{ $vendor->id }}"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="editVendorModalLabel{{ $vendor->id }}"
-            aria-hidden="true"
-        >
-
-            <div
-                class="modal-dialog modal-lg"
-                role="document"
-            >
-
-                <form
-                    action="{{ route('vendors.update', $vendor->id) }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-                >
-
-                    @csrf
-
-                    @method('PUT')
-
-
-                    <div class="modal-content">
-
-
-                        <!-- HEADER -->
-
-                        <div class="modal-header">
-
-                            <h5
-                                class="vendor-modal-title"
-                                id="editVendorModalLabel{{ $vendor->id }}"
-                            >
-
-                                <span class="modal-title-icon">
-
-                                    <i class="fas fa-pen"></i>
-
-                                </span>
-
-                                Edit Vendor
-
-                            </h5>
-
-
-                            <button
-                                type="button"
-                                class="close"
-                                data-dismiss="modal"
-                            >
-
-                                <span>&times;</span>
-
-                            </button>
-
-                        </div>
-
-
-                        <!-- BODY -->
-
-                        <div class="modal-body">
-
-
-                            <!-- BASIC INFORMATION -->
-
-                            <div class="form-section">
-
-                                <div class="form-section-title">
-
-                                    <i class="fas fa-user"></i>
-
-                                    Basic Information
-
-                                </div>
-
-
-                                <div class="row">
-
-
-                                    <!-- NAME -->
-
-                                    <div class="col-md-6">
-
-                                        <div class="vendor-form-group">
-
-                                            <label>
-
-                                                Vendor Name
-
-                                                <span class="required">*</span>
-
-                                            </label>
-
-                                            <input
-                                                type="text"
-                                                name="vendor_name"
-                                                class="vendor-form-control"
-                                                value="{{ $vendor->vendor_name }}"
-                                                placeholder="Enter vendor name"
-                                                required
-                                            >
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <!-- PHONE -->
-
-                                    <div class="col-md-6">
-
-                                        <div class="vendor-form-group">
-
-                                            <label>
-
-                                                Phone Number
-
-                                                <span class="required">*</span>
-
-                                            </label>
-
-                                            <input
-                                                type="text"
-                                                name="phone_number"
-                                                class="vendor-form-control"
-                                                value="{{ $vendor->phone_number }}"
-                                                placeholder="10 digit phone number"
-                                                maxlength="10"
-                                                minlength="10"
-                                                pattern="[0-9]{10}"
-                                                inputmode="numeric"
-                                                required
-                                            >
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <!-- EMAIL -->
-
-                                    <div class="col-md-6">
-
-                                        <div class="vendor-form-group">
-
-                                            <label>
-
-                                                Mail ID
-
-                                                <span class="required">*</span>
-
-                                            </label>
-
-                                            <input
-                                                type="email"
-                                                name="mail_id"
-                                                class="vendor-form-control"
-                                                value="{{ $vendor->mail_id }}"
-                                                placeholder="vendor@example.com"
-                                                required
-                                            >
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <!-- CATEGORIES -->
-
-                                    <div class="col-md-6">
-
-                                        <div class="vendor-form-group">
-
-                                            <label>
-
-                                                Categories
-
-                                                <span class="required">*</span>
-
-                                            </label>
-
-
-                                            <div class="dropdown category-picker">
-
-                                                <button
-                                                    type="button"
-                                                    class="category-picker-button dropdown-toggle"
-                                                    data-toggle="dropdown"
-                                                    data-display="static"
-                                                >
-
-                                                    <span class="category-picker-content">
-
-                                                        <i class="fas fa-tags category-picker-icon"></i>
-
-                                                        <span class="selected-category-summary">
-
-                                                            @if(count($selectedCategoryIds) > 0)
-
-                                                                {{ count($selectedCategoryIds) }} categories selected
-
-                                                            @else
-
-                                                                Select categories
-
-                                                            @endif
-
-                                                        </span>
-
-                                                    </span>
-
-
-                                                    <span class="selected-count">
-
-                                                        {{ count($selectedCategoryIds) }}
-
-                                                    </span>
-
-                                                </button>
-
-
-                                                <div class="dropdown-menu category-dropdown-menu">
-
-                                                    @forelse($categories as $category)
-
-                                                        <label class="category-option">
-
-                                                            <input
-                                                                type="checkbox"
-                                                                name="categories[]"
-                                                                value="{{ $category->id }}"
-                                                                {{ in_array($category->id, $selectedCategoryIds) ? 'checked' : '' }}
-                                                            >
-
-                                                            <span>
-                                                                {{ $category->category_name }}
-                                                            </span>
-
-                                                        </label>
-
-                                                    @empty
-
-                                                        <div class="p-3 text-muted">
-                                                            No categories available.
-                                                        </div>
-
-                                                    @endforelse
-
-                                                </div>
-
-                                            </div>
-
-                                            <small class="form-help">
-                                                Select one or more categories.
-                                            </small>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- LOCATION -->
-
-                            <div class="form-section">
-
-                                <div class="form-section-title">
-
-                                    <i class="fas fa-map-marker-alt"></i>
-
-                                    Location
-
-                                </div>
-
-                                <div class="vendor-form-group">
-
-                                    <label>
-
-                                        Address
-
-                                        <span class="required">*</span>
-
-                                    </label>
-
-                                    <textarea
-                                        name="address"
-                                        class="vendor-form-control"
-                                        rows="3"
-                                        placeholder="Enter complete vendor address"
-                                        required
-                                    >{{ $vendor->address }}</textarea>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- ABOUT -->
-
-                            <div class="form-section">
-
-                                <div class="form-section-title">
-
-                                    <i class="fas fa-align-left"></i>
-
-                                    About Vendor
-
-                                </div>
-
-                                <div class="vendor-form-group">
-
-                                    <label>
-
-                                        Bio
-
-                                        <span class="required">*</span>
-
-                                    </label>
-
-                                    <textarea
-                                        name="bio"
-                                        class="vendor-form-control"
-                                        rows="4"
-                                        placeholder="Write a short description about this vendor"
-                                        required
-                                    >{{ $vendor->bio }}</textarea>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- LOGO -->
-
-                            <div class="form-section">
-
-                                <div class="form-section-title">
-
-                                    <i class="fas fa-image"></i>
-
-                                    Vendor Logo
-
-                                </div>
-
-
-                                <div class="logo-upload-box">
-
-
-                                    @if($vendor->logo)
-
-                                        <label>
-                                            Current Logo
-                                        </label>
-
-                                        <br>
-
-                                        <img
-                                            src="{{ asset($vendor->logo) }}"
-                                            class="current-logo-preview"
-                                            alt="{{ $vendor->vendor_name }}"
-                                        >
-
-                                    @endif
-
-
-                                    <div class="vendor-form-group mb-0">
-
-                                        <label>
-                                            Change Logo
-                                        </label>
-
-                                        <input
-                                            type="file"
-                                            name="logo"
-                                            class="vendor-form-control logo-upload-input"
-                                            accept=".jpg,.jpeg,.png,.webp"
-                                        >
-
-                                        <small class="form-help">
-
-                                            Leave empty to keep the current logo.
-
-                                            JPG, JPEG, PNG or WEBP.
-
-                                            Maximum 2 MB.
-
-                                        </small>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-
-                        <!-- FOOTER -->
-
-                        <div class="modal-footer">
-
-                            <button
-                                type="button"
-                                class="btn-modal-cancel"
-                                data-dismiss="modal"
-                            >
-                                Cancel
-                            </button>
-
-                            <button
-                                type="submit"
-                                class="btn-modal-save"
-                            >
-
-                                <i class="fas fa-save mr-1"></i>
-
-                                Update Vendor
-
-                            </button>
-
-                        </div>
-
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    @endforeach
-
-
 </div>
-
-
-<!-- =========================================================
-     CATEGORY DROPDOWN JAVASCRIPT
-     ========================================================= -->
-
-<script>
-
-$(document).ready(function () {
-
-
-    /*
-     * Prevent Bootstrap dropdown from closing
-     * when clicking a checkbox.
-     */
-
-    $('.category-dropdown-menu').on('click', function (e) {
-
-        e.stopPropagation();
-
-    });
-
-
-    /*
-     * Update category count and selected text.
-     */
-
-    function updateCategoryPicker(picker) {
-
-        var checked = picker
-            .find('input[name="categories[]"]:checked');
-
-        var count = checked.length;
-
-        var button = picker
-            .find('.category-picker-button');
-
-        var summary = button
-            .find('.selected-category-summary');
-
-        var countBadge = button
-            .find('.selected-count');
-
-
-        countBadge.text(count);
-
-
-        if (count === 0) {
-
-            summary.text('Select categories');
-
-            return;
-
-        }
-
-
-        var names = [];
-
-
-        checked.each(function () {
-
-            names.push(
-                $(this)
-                    .closest('.category-option')
-                    .find('span')
-                    .text()
-                    .trim()
-            );
-
-        });
-
-
-        if (count <= 2) {
-
-            summary.text(
-                names.join(', ')
-            );
-
-        } else {
-
-            summary.text(
-                count + ' categories selected'
-            );
-
-        }
-
-    }
-
-
-    /*
-     * Initialize all category dropdowns.
-     */
-
-    $('.category-picker').each(function () {
-
-        updateCategoryPicker(
-            $(this)
-        );
-
-    });
-
-
-    /*
-     * Update when checkbox changes.
-     */
-
-    $(document).on(
-        'change',
-        '.category-picker input[name="categories[]"]',
-        function () {
-
-            updateCategoryPicker(
-                $(this).closest('.category-picker')
-            );
-
-        }
-    );
-
-
-    /*
-     * Reset NEW VENDOR category selection
-     * after the modal closes.
-     */
-
-    $('#newVendorModal').on(
-        'hidden.bs.modal',
-        function () {
-
-            $(this)
-                .find('input[name="categories[]"]')
-                .prop('checked', false);
-
-            updateCategoryPicker(
-                $(this).find('.category-picker')
-            );
-
-        }
-    );
-
-
-    /*
-     * Remove modal-open class after modal closes.
-     */
-
-    $('.vendor-modal').on(
-        'hidden.bs.modal',
-        function () {
-
-            $('body').removeClass('modal-open');
-
-        }
-    );
-
-});
-
-</script>
-
 
 @endsection

@@ -248,7 +248,7 @@
                                                     >
 
                                                         <i class="fas fa-edit"></i>
-                                                        Edit
+                                                        
 
                                                     </button>
 
@@ -272,7 +272,7 @@
                                                         >
 
                                                             <i class="fas fa-trash"></i>
-                                                            Delete
+                                                            
 
                                                         </button>
 
