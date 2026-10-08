@@ -18,7 +18,11 @@ class VendorsController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('vendors', compact('vendors'));
+        $categories = DB::table('categories')
+            ->orderBy('category_name', 'asc')
+            ->get();
+
+        return view('vendors', compact('vendors', 'categories'));
     }
 
 
@@ -33,13 +37,31 @@ class VendorsController extends Controller
             ->first();
 
         if (!$vendor) {
-
             return redirect()
                 ->route('vendors')
                 ->with('error', 'Vendor not found.');
         }
 
-        return view('edit_vendor', compact('vendor'));
+        // Get all categories
+        $categories = DB::table('categories')
+            ->orderBy('category_name', 'asc')
+            ->get();
+
+        // Get categories already selected for this vendor
+        // service_id contains the category ID
+        $selectedCategories = DB::table('vendor_services')
+            ->where('vendor_id', $id)
+            ->pluck('service_id')
+            ->toArray();
+
+        return view(
+            'edit_vendor',
+            compact(
+                'vendor',
+                'categories',
+                'selectedCategories'
+            )
+        );
     }
 
 
@@ -49,7 +71,9 @@ class VendorsController extends Controller
 
     public function store(Request $request)
     {
-        // Validation
+        // =================================================
+        // VALIDATION
+        // =================================================
 
         $request->validate([
 
@@ -87,6 +111,21 @@ class VendorsController extends Controller
                 'max:2048'
             ],
 
+            // =================================================
+            // CATEGORIES
+            // =================================================
+
+            'categories' => [
+                'required',
+                'array',
+                'min:1'
+            ],
+
+            'categories.*' => [
+                'integer',
+                'exists:categories,id'
+            ],
+
         ], [
 
             'vendor_name.required' =>
@@ -118,6 +157,19 @@ class VendorsController extends Controller
 
             'logo.max' =>
                 'Logo size must not exceed 2 MB.',
+
+            'categories.required' =>
+                'Please select at least one category.',
+
+            'categories.array' =>
+                'Invalid category selection.',
+
+            'categories.min' =>
+                'Please select at least one category.',
+
+            'categories.*.exists' =>
+                'Selected category does not exist.',
+
         ]);
 
 
@@ -134,9 +186,7 @@ class VendorsController extends Controller
             $folder = public_path('uploads/vendors');
 
             // Create folder if it does not exist
-
             if (!File::exists($folder)) {
-
                 File::makeDirectory(
                     $folder,
                     0755,
@@ -144,24 +194,18 @@ class VendorsController extends Controller
                 );
             }
 
-
             // Create unique filename
-
             $filename =
                 time() . '_' .
                 $file->getClientOriginalName();
 
-
             // Move file
-
             $file->move(
                 $folder,
                 $filename
             );
 
-
             // Save path
-
             $logoPath =
                 'uploads/vendors/' .
                 $filename;
@@ -172,7 +216,7 @@ class VendorsController extends Controller
         // INSERT VENDOR
         // =================================================
 
-        DB::table('vendors')->insert([
+        $vendorId = DB::table('vendors')->insertGetId([
 
             'vendor_name' =>
                 $request->vendor_name,
@@ -199,6 +243,40 @@ class VendorsController extends Controller
                 now(),
 
         ]);
+
+
+        // =================================================
+        // SAVE VENDOR CATEGORIES
+        // =================================================
+        //
+        // IMPORTANT:
+        // category ID is stored in service_id
+        //
+        // Example:
+        // vendor_id = 10
+        // service_id = 2
+        //
+        // means vendor 10 has category 2.
+        // =================================================
+
+        foreach ($request->categories as $categoryId) {
+
+            DB::table('vendor_services')->insert([
+
+                'vendor_id' =>
+                    $vendorId,
+
+                'service_id' =>
+                    $categoryId,
+
+                'created_at' =>
+                    now(),
+
+                'updated_at' =>
+                    now(),
+
+            ]);
+        }
 
 
         // =================================================
@@ -260,6 +338,21 @@ class VendorsController extends Controller
                 'max:2048'
             ],
 
+            // =================================================
+            // CATEGORIES
+            // =================================================
+
+            'categories' => [
+                'required',
+                'array',
+                'min:1'
+            ],
+
+            'categories.*' => [
+                'integer',
+                'exists:categories,id'
+            ],
+
         ], [
 
             'vendor_name.required' =>
@@ -291,6 +384,19 @@ class VendorsController extends Controller
 
             'logo.max' =>
                 'Logo size must not exceed 2 MB.',
+
+            'categories.required' =>
+                'Please select at least one category.',
+
+            'categories.array' =>
+                'Invalid category selection.',
+
+            'categories.min' =>
+                'Please select at least one category.',
+
+            'categories.*.exists' =>
+                'Selected category does not exist.',
+
         ]);
 
 
@@ -301,7 +407,6 @@ class VendorsController extends Controller
         $vendor = DB::table('vendors')
             ->where('id', $id)
             ->first();
-
 
         if (!$vendor) {
 
@@ -331,9 +436,7 @@ class VendorsController extends Controller
 
             $folder = public_path('uploads/vendors');
 
-
             // Create folder if necessary
-
             if (!File::exists($folder)) {
 
                 File::makeDirectory(
@@ -345,14 +448,12 @@ class VendorsController extends Controller
 
 
             // Create new filename
-
             $filename =
                 time() . '_' .
                 $file->getClientOriginalName();
 
 
             // Move new logo
-
             $file->move(
                 $folder,
                 $filename
@@ -376,7 +477,6 @@ class VendorsController extends Controller
 
 
             // Save new logo path
-
             $logoPath =
                 'uploads/vendors/' .
                 $filename;
@@ -384,7 +484,7 @@ class VendorsController extends Controller
 
 
         // =================================================
-        // UPDATE DATABASE
+        // UPDATE VENDOR
         // =================================================
 
         DB::table('vendors')
@@ -413,6 +513,42 @@ class VendorsController extends Controller
                     now(),
 
             ]);
+
+
+        // =================================================
+        // DELETE OLD VENDOR CATEGORIES
+        // =================================================
+
+        DB::table('vendor_services')
+            ->where('vendor_id', $id)
+            ->delete();
+
+
+        // =================================================
+        // SAVE UPDATED CATEGORIES
+        // =================================================
+        //
+        // Category ID is stored in service_id
+        // =================================================
+
+        foreach ($request->categories as $categoryId) {
+
+            DB::table('vendor_services')->insert([
+
+                'vendor_id' =>
+                    $id,
+
+                'service_id' =>
+                    $categoryId,
+
+                'created_at' =>
+                    now(),
+
+                'updated_at' =>
+                    now(),
+
+            ]);
+        }
 
 
         // =================================================

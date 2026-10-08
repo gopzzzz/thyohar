@@ -6,31 +6,41 @@
 
     <!-- Content Header -->
     <section class="content-header">
+
         <div class="container-fluid">
 
             <div class="row mb-2">
 
                 <div class="col-sm-6">
+
                     <h1>Vendor Services</h1>
+
                 </div>
 
                 <div class="col-sm-6">
+
                     <ol class="breadcrumb float-sm-right">
 
                         <li class="breadcrumb-item">
+
                             <a href="#">Home</a>
+
                         </li>
 
                         <li class="breadcrumb-item active">
+
                             Vendor Services
+
                         </li>
 
                     </ol>
+
                 </div>
 
             </div>
 
         </div>
+
     </section>
 
 
@@ -39,27 +49,35 @@
 
         <div class="container-fluid">
 
+
             {{-- Success Message --}}
+
             @if(session('success'))
 
                 <div class="alert alert-success">
+
                     {{ session('success') }}
+
                 </div>
 
             @endif
 
 
             {{-- Error Message --}}
+
             @if(session('error'))
 
                 <div class="alert alert-danger">
+
                     {{ session('error') }}
+
                 </div>
 
             @endif
 
 
             {{-- Validation Errors --}}
+
             @if($errors->any())
 
                 <div class="alert alert-danger">
@@ -68,7 +86,9 @@
 
                         @foreach($errors->all() as $error)
 
-                            <li>{{ $error }}</li>
+                            <li>
+                                {{ $error }}
+                            </li>
 
                         @endforeach
 
@@ -81,20 +101,25 @@
 
             <div class="card">
 
+
                 <div class="card-header">
 
                     <h3 class="card-title">
+
                         Vendor Services List
+
                     </h3>
 
 
                     <!-- ADD BUTTON -->
+
                     <button type="button"
                             class="btn btn-primary float-right"
                             data-toggle="modal"
                             data-target="#addServiceModal">
 
                         <i class="fas fa-plus"></i>
+
                         Add Service
 
                     </button>
@@ -108,13 +133,17 @@
 
                         <table class="table table-bordered table-striped">
 
+
                             <thead>
 
                                 <tr>
 
                                     <th>ID</th>
+
                                     <th>Vendor ID</th>
-                                    <th>Service ID</th>
+
+                                    <th>Category ID</th>
+
                                     <th>Action</th>
 
                                 </tr>
@@ -124,76 +153,128 @@
 
                             <tbody>
 
+
                                 {{-- SERIAL NUMBER --}}
+
                                 @php
+
                                     $i = 1;
+
                                 @endphp
 
 
                                 @forelse($vendorservices as $service)
 
+
                                     <tr>
 
+
                                         <!-- DISPLAY SERIAL NUMBER -->
+
                                         <td>
+
                                             {{ $i }}
+
                                         </td>
 
 
-                                        <!-- VENDOR ID -->
+                                        <!-- VENDOR NAME -->
+
                                         <td>
-                                            {{ $service->vendor_id }}
+
+                                            @if($service->vendor_name)
+
+                                                {{ $service->vendor_name }}
+
+                                            @else
+
+                                                <span class="text-muted">
+
+                                                    Vendor not found
+
+                                                </span>
+
+                                            @endif
+
                                         </td>
 
 
-                                        <!-- SERVICE ID -->
+                                        <!-- CATEGORY NAME -->
+
                                         <td>
-                                            {{ $service->service_id }}
+
+                                            @if($service->category_name)
+
+                                                {{ $service->category_name }}
+
+                                            @else
+
+                                                <span class="text-muted">
+
+                                                    Category not found
+
+                                                </span>
+
+                                            @endif
+
                                         </td>
 
 
                                         <!-- ACTION -->
+
                                         <td>
 
+
                                             <!-- EDIT BUTTON -->
+
                                             <button type="button"
                                                     class="btn btn-primary btn-sm"
                                                     data-toggle="modal"
                                                     data-target="#editServiceModal{{ $service->id }}">
 
                                                 <i class="fas fa-edit"></i>
+
                                                 Edit
 
                                             </button>
 
 
                                             <!-- DELETE BUTTON -->
+
                                             <form action="{{ route('vendor_services.destroy', $service->id) }}"
                                                   method="POST"
                                                   style="display:inline-block;">
 
                                                 @csrf
+
                                                 @method('DELETE')
+
 
                                                 <button type="submit"
                                                         class="btn btn-primary btn-sm"
                                                         onclick="return confirm('Are you sure you want to delete this service?')">
 
                                                     <i class="fas fa-trash"></i>
+
                                                     Delete
 
                                                 </button>
 
                                             </form>
 
+
                                         </td>
+
 
                                     </tr>
 
 
                                     {{-- INCREASE SERIAL NUMBER --}}
+
                                     @php
+
                                         $i++;
+
                                     @endphp
 
 
@@ -201,19 +282,26 @@
                                     <!-- EDIT MODAL -->
                                     <!-- ========================= -->
 
+
                                     <div class="modal fade"
                                          id="editServiceModal{{ $service->id }}">
 
+
                                         <div class="modal-dialog">
+
 
                                             <div class="modal-content">
 
 
                                                 <div class="modal-header">
 
+
                                                     <h4 class="modal-title">
+
                                                         Edit Vendor Service
+
                                                     </h4>
+
 
                                                     <button type="button"
                                                             class="close"
@@ -223,6 +311,7 @@
 
                                                     </button>
 
+
                                                 </div>
 
 
@@ -230,42 +319,89 @@
                                                       action="{{ route('vendor_services.update', $service->id) }}">
 
                                                     @csrf
+
                                                     @method('PUT')
 
 
                                                     <div class="modal-body">
 
 
-                                                        <!-- Vendor ID -->
+                                                        <!-- Vendor -->
 
                                                         <div class="form-group">
 
                                                             <label>
-                                                                Vendor ID
+
+                                                                Vendor
+
                                                             </label>
 
-                                                            <input type="text"
-                                                                   name="vendor_id"
-                                                                   class="form-control"
-                                                                   value="{{ $service->vendor_id }}"
-                                                                   required>
+
+                                                            <select name="vendor_id"
+                                                                    class="form-control"
+                                                                    required>
+
+
+                                                                <option value="">
+
+                                                                    Select Vendor
+
+                                                                </option>
+
+
+                                                                @foreach($vendors as $vendor)
+
+                                                                    <option value="{{ $vendor->id }}"
+                                                                        {{ $service->vendor_id == $vendor->id ? 'selected' : '' }}>
+
+                                                                        {{ $vendor->vendor_name }}
+
+                                                                    </option>
+
+                                                                @endforeach
+
+
+                                                            </select>
 
                                                         </div>
 
 
-                                                        <!-- Service ID -->
+                                                        <!-- Category -->
 
                                                         <div class="form-group">
 
                                                             <label>
-                                                                Service ID
+
+                                                                Category
+
                                                             </label>
 
-                                                            <input type="text"
-                                                                   name="service_id"
-                                                                   class="form-control"
-                                                                   value="{{ $service->service_id }}"
-                                                                   required>
+
+                                                            <select name="service_id"
+                                                                    class="form-control"
+                                                                    required>
+
+
+                                                                <option value="">
+
+                                                                    Select Category
+
+                                                                </option>
+
+
+                                                                @foreach($categories as $category)
+
+                                                                    <option value="{{ $category->id }}"
+                                                                        {{ $service->service_id == $category->id ? 'selected' : '' }}>
+
+                                                                        {{ $category->category_name }}
+
+                                                                    </option>
+
+                                                                @endforeach
+
+
+                                                            </select>
 
                                                         </div>
 
@@ -274,6 +410,7 @@
 
 
                                                     <div class="modal-footer">
+
 
                                                         <button type="button"
                                                                 class="btn btn-secondary"
@@ -291,9 +428,12 @@
 
                                                         </button>
 
+
                                                     </div>
 
+
                                                 </form>
+
 
                                             </div>
 
@@ -301,7 +441,9 @@
 
                                     </div>
 
+
                                 @empty
+
 
                                     <tr>
 
@@ -314,15 +456,19 @@
 
                                     </tr>
 
+
                                 @endforelse
 
+
                             </tbody>
+
 
                         </table>
 
                     </div>
 
                 </div>
+
 
             </div>
 
@@ -337,19 +483,26 @@
 <!-- ADD SERVICE MODAL -->
 <!-- ================================================= -->
 
+
 <div class="modal fade"
      id="addServiceModal">
 
+
     <div class="modal-dialog">
+
 
         <div class="modal-content">
 
 
             <div class="modal-header">
 
+
                 <h4 class="modal-title">
+
                     Add Vendor Service
+
                 </h4>
+
 
                 <button type="button"
                         class="close"
@@ -359,11 +512,13 @@
 
                 </button>
 
+
             </div>
 
 
             <form method="POST"
                   action="{{ route('vendor_services.store') }}">
+
 
                 @csrf
 
@@ -371,34 +526,80 @@
                 <div class="modal-body">
 
 
-                    <!-- Vendor ID -->
+                    <!-- Vendor -->
 
                     <div class="form-group">
 
                         <label>
-                            Vendor ID
+
+                            Vendor
+
                         </label>
 
-                        <input type="text"
-                               name="vendor_id"
-                               class="form-control"
-                               required>
+
+                        <select name="vendor_id"
+                                class="form-control"
+                                required>
+
+
+                            <option value="">
+
+                                Select Vendor
+
+                            </option>
+
+
+                            @foreach($vendors as $vendor)
+
+                                <option value="{{ $vendor->id }}">
+
+                                    {{ $vendor->vendor_name }}
+
+                                </option>
+
+                            @endforeach
+
+
+                        </select>
 
                     </div>
 
 
-                    <!-- Service ID -->
+                    <!-- Category -->
 
                     <div class="form-group">
 
                         <label>
-                            Service ID
+
+                            Category
+
                         </label>
 
-                        <input type="text"
-                               name="service_id"
-                               class="form-control"
-                               required>
+
+                        <select name="service_id"
+                                class="form-control"
+                                required>
+
+
+                            <option value="">
+
+                                Select Category
+
+                            </option>
+
+
+                            @foreach($categories as $category)
+
+                                <option value="{{ $category->id }}">
+
+                                    {{ $category->category_name }}
+
+                                </option>
+
+                            @endforeach
+
+
+                        </select>
 
                     </div>
 
@@ -407,6 +608,7 @@
 
 
                 <div class="modal-footer">
+
 
                     <button type="button"
                             class="btn btn-secondary"
@@ -424,14 +626,18 @@
 
                     </button>
 
+
                 </div>
 
+
             </form>
+
 
         </div>
 
     </div>
 
 </div>
+
 
 @endsection
