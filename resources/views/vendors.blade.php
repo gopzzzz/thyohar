@@ -196,9 +196,7 @@
                                                 Contact
                                             </th>
 
-                                            <th>
-                                                Email
-                                            </th>
+                                           
 
                                             <th>
                                                 Address
@@ -208,9 +206,7 @@
                                                 Categories
                                             </th>
 
-                                            <th>
-                                                Bio
-                                            </th>
+                                         
 
                                             <th style="width:120px;">
                                                 Action
@@ -313,13 +309,6 @@
 
                                                 <!-- EMAIL -->
 
-                                                <td>
-
-                                                    <i class="far fa-envelope mr-1"></i>
-
-                                                    {{ $vendor->mail_id }}
-
-                                                </td>
 
 
                                                 <!-- ADDRESS -->
@@ -358,11 +347,6 @@
 
                                                 <!-- BIO -->
 
-                                                <td>
-
-                                                    {{ \Illuminate\Support\Str::limit($vendor->bio, 70) }}
-
-                                                </td>
 
 
                                                 <!-- ACTION -->

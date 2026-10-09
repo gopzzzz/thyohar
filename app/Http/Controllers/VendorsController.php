@@ -82,6 +82,8 @@ class VendorsController extends Controller
                 'string',
                 'max:255'
             ],
+            
+            
 
             'phone_number' => [
                 'required',
@@ -91,7 +93,8 @@ class VendorsController extends Controller
             'mail_id' => [
                 'required',
                 'email',
-                'max:255'
+                'max:255',
+                'unique:user,email'
             ],
 
             'address' => [
@@ -212,6 +215,21 @@ class VendorsController extends Controller
         }
 
 
+        $userid=DB::table('user')->insertGetId([
+
+             'name' =>
+                $request->vendor_name,
+             'email' =>
+                $request->mail_id,
+
+            'password' => Hash::make('admin@123'),
+
+            'role' => 2,
+                    
+
+        ]);
+
+
         // =================================================
         // INSERT VENDOR
         // =================================================
@@ -226,6 +244,8 @@ class VendorsController extends Controller
 
             'mail_id' =>
                 $request->mail_id,
+
+             'userid' =>$userid,
 
             'address' =>
                 $request->address,
